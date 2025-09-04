@@ -100,9 +100,11 @@
 
 ###### Шаг 4. Назначьте компьютерам статические IPv6-адреса.
 
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-5.jpg?raw=true)
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-6.jpg?raw=true)
 
 ##### Часть 3. Проверка сквозного соединения
+
+Сквозное соединенеие работает только пока получаю адреса по dhcp, как только ставлю статику по таблице работать перестает  
 
 #### Вопросы для повторения
 
