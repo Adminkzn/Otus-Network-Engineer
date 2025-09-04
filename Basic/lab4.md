@@ -88,7 +88,28 @@
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-4.jpg?raw=true)
 
 ###### Шаг 3. Назначьте IPv6-адреса интерфейсу управления (SVI) на S1.
+
+    S1(config)#
+    S1(config)#interface vlan 1
+    S1(config-if)#ipv6 address 2001:db8:acad:1::b/64
+    S1(config-if)#ipv6 address fe80::b/64
+    %Vlan1: Error: FE80::B/64 is invalid
+    S1(config-if)#ipv6 address fe80:0000:0000:0000:0000:0000:0000:000b/64
+    %Vlan1: Error: FE80::B/64 is invalid
+
+
 ###### Шаг 4. Назначьте компьютерам статические IPv6-адреса.
 
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-5.jpg?raw=true)
+
 ##### Часть 3. Проверка сквозного соединения
+
+#### Вопросы для повторения
+
+1.	Почему обоим интерфейсам Ethernet на R1 можно назначить один и тот же локальный адрес канала — FE80::1?
+Ответ: Link-Local адреса действкют только в предел одного сетевого подключения, линка.
+
+2.	Какой идентификатор подсети в индивидуальном IPv6-адресе 2001:db8:acad::aaaa:1234/64?
+Ответ: первые 64 бита 2001:db8:acad::
+
 
