@@ -129,11 +129,13 @@ FF02::1:FF00:1 Устройства с определенным окончани
 
 ###### Шаг 4. Назначьте компьютерам статические IPv6-адреса.
 
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-6.jpg?raw=true)
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-8.jpg?raw=true)
 
 ##### Часть 3. Проверка сквозного соединения
 
-Сквозное соединенеие работает только пока получаю адреса по dhcp, как только ставлю статику по таблице работать перестает  
+Ping c PC-A на PC-B и наоборот 
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-9.jpg?raw=true)
+
 
 #### Вопросы для повторения
 
