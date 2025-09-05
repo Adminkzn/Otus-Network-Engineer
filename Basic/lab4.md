@@ -44,41 +44,40 @@
 ###### Шаг 1. Назначьте IPv6-адреса интерфейсам Ethernet на R1.
     R1(config)#interface gigabitEthernet 0/0/0
     R1(config-if)#ipv6 address 2001:db8:acad:a::1/64
-	R1(config-if)#ipv6 address fe80::1/64
+    R1(config-if)#ipv6 address fe80::1 link-local 
+    R1(config-if)#no shutdown 
     R1(config-if)#exit
     R1(config)#interface gigabitEthernet 0/0/1
     R1(config-if)#ipv6 address 2001:db8:acad:1::1/64
-	R1(config-if)#ipv6 address fe80::1/64
-    R1(config-if)#exit
-    R1(config)#exit 
-    R1#
+    R1(config-if)#ipv6 address fe80::1 link-local 
+    R1(config-if)#no shutdown 
+    R1(config-if)#end
     R1#show ipv6 interface brief
-    GigabitEthernet0/0/0       [up/up]
-        FE80::202:4AFF:FEC6:1E01
-        2001:DB8:ACAD:A::1
-    GigabitEthernet0/0/1       [up/up]
-        FE80::202:4AFF:FEC6:1E02
-        2001:DB8:ACAD:1::1
-    Vlan1                      [administratively down/down]
-        unassigned
+	GigabitEthernet0/0/0       [up/up]
+    FE80::1
+    2001:DB8:ACAD:A::1
+GigabitEthernet0/0/1       [up/up]
+    FE80::1
+    2001:DB8:ACAD:1::1
+Vlan1                      [administratively down/down]
+    unassigned
+
 ###### Какие группы многоадресной рассылки назначены интерфейсу G0/0?
-    R1#show ipv6 interface GigabitEthernet0/0/0
+        R1#show ipv6 interface GigabitEthernet0/0/0
     GigabitEthernet0/0/0 is up, line protocol is up
-      IPv6 is enabled, link-local address is FE80::202:4AFF:FEC6:1E01
+      IPv6 is enabled, link-local address is FE80::1
       No Virtual link-local address(es):
       Global unicast address(es):
         2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64
       Joined group address(es):
         FF02::1
+        FF02::2
         FF02::1:FF00:1
-        FF02::1:FFC6:1E01
-      MTU is 1500 bytes
-      ICMP error messages limited to one every 100 milliseconds
-      ICMP redirects are enabled
-      ICMP unreachables are sent
-      ND DAD is enabled, number of DAD attempts: 1
-      ND reachable time is 30000 milliseconds
-    R1#
+
+FF02::1	Все устройства
+FF02::2	Все маршрутизаторы
+FF02::1:FF00:1 Устройства с определенным окончанием адреса	FF02::1:FFXX:XXXX
+
 ###### Шаг 2. Активируйте IPv6-маршрутизацию на R1.
 
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%204-3.jpg?raw=true)
