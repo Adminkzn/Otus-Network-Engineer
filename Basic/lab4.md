@@ -56,11 +56,11 @@
 	GigabitEthernet0/0/0       [up/up]
     FE80::1
     2001:DB8:ACAD:A::1
-GigabitEthernet0/0/1       [up/up]
-    FE80::1
-    2001:DB8:ACAD:1::1
-Vlan1                      [administratively down/down]
-    unassigned
+    GigabitEthernet0/0/1       [up/up]
+        FE80::1
+        2001:DB8:ACAD:1::1
+    Vlan1                      [administratively down/down]
+        unassigned
 
 ###### Какие группы многоадресной рассылки назначены интерфейсу G0/0?
         R1#show ipv6 interface GigabitEthernet0/0/0
@@ -93,10 +93,38 @@ FF02::1:FF00:1 Устройства с определенным окончани
     S1(config)#
     S1(config)#interface vlan 1
     S1(config-if)#ipv6 address 2001:db8:acad:1::b/64
-    S1(config-if)#ipv6 address fe80::b/64
-    %Vlan1: Error: FE80::B/64 is invalid
-    S1(config-if)#ipv6 address fe80:0000:0000:0000:0000:0000:0000:000b/64
-    %Vlan1: Error: FE80::B/64 is invalid
+	S1(config-if)#ipv6 address fe80::b link-local 
+    S1(config-if)#end
+	S1#show ipv6 interface brief
+    FastEthernet0/1            [down/down]
+    FastEthernet0/2            [down/down]
+    FastEthernet0/3            [down/down]
+    FastEthernet0/4            [down/down]
+    FastEthernet0/5            [up/up]
+    FastEthernet0/6            [up/up]
+    FastEthernet0/7            [down/down]
+    FastEthernet0/8            [down/down]
+    FastEthernet0/9            [down/down]
+    FastEthernet0/10           [down/down]
+    FastEthernet0/11           [down/down]
+    FastEthernet0/12           [down/down]
+    FastEthernet0/13           [down/down]
+    FastEthernet0/14           [down/down]
+    FastEthernet0/15           [down/down]
+    FastEthernet0/16           [down/down]
+    FastEthernet0/17           [down/down]
+    FastEthernet0/18           [down/down]
+    FastEthernet0/19           [down/down]
+    FastEthernet0/20           [down/down]
+    FastEthernet0/21           [down/down]
+    FastEthernet0/22           [down/down]
+    FastEthernet0/23           [down/down]
+    FastEthernet0/24           [down/down]
+    GigabitEthernet0/1         [down/down]
+    GigabitEthernet0/2         [down/down]
+    Vlan1                      [up/up]
+        FE80::B
+        2001:DB8:ACAD:1::B
 
 
 ###### Шаг 4. Назначьте компьютерам статические IPv6-адреса.
