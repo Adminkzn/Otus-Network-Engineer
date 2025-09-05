@@ -90,10 +90,10 @@ FF02::1:FF00:1 Устройства с определенным окончани
 
 ###### Шаг 3. Назначьте IPv6-адреса интерфейсу управления (SVI) на S1.
 
-    S1(config)#
     S1(config)#interface vlan 1
     S1(config-if)#ipv6 address 2001:db8:acad:1::b/64
 	S1(config-if)#ipv6 address fe80::b link-local 
+	S1(config-if)#no shutdown 
     S1(config-if)#end
 	S1#show ipv6 interface brief
     FastEthernet0/1            [down/down]
