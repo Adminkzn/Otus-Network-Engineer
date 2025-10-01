@@ -5,12 +5,18 @@
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%206-2.jpg?raw=true)
 #### Таблица VLAN
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%206-3.jpg?raw=true)
+
 #### Задачи
 Часть 1. Создание сети и настройка основных параметров устройства
+
 Часть 2. Создание сетей VLAN и назначение портов коммутатора
+
 Часть 3. Настройка транка 802.1Q между коммутаторами.
+
 Часть 4. Настройка маршрутизации между сетями VLAN
+
 Часть 5. Проверка, что маршрутизация между VLAN работает
+
 #### Часть 1. Создание сети и настройка основных параметров устройства
 ##### Шаг 1. Создайте сеть согласно топологии.
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%206-4.jpg?raw=true)
