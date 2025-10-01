@@ -93,7 +93,7 @@
     S1(config-if)#ip address 192.168.10.11 255.255.255.0
     S1(config)#ip default-gateway 192.168.10.1
 	
-	    S1(config)#interface range fastEthernet 0/2-4, fastEthernet 0/7-24, gigabitEthernet 0/1-2
+    S1(config)#interface range fastEthernet 0/2-4, fastEthernet 0/7-24, gigabitEthernet 0/1-2
     S1(config-if-range)#switchport mode access 
     S1(config-if-range)#switchport access vlan 999
     S1(config-if-range)#shutdown 
