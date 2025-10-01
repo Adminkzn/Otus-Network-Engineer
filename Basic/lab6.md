@@ -301,4 +301,10 @@
     R1(config)#ip routing 
 	
 #### Часть 5. Проверьте, работает ли маршрутизация между VLAN
+##### Шаг 1. Выполните следующие тесты с PC-A. Все должно быть успешно.
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%206-10.jpg?raw=true)
+##### Шаг 2. Пройдите следующий тест с PC-B
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%206-11.jpg?raw=true)
+
+#### Что произойдет, если G0/0/1 на R1 будет отключен?
+Перестанет работать межвлановая маршрутизация
