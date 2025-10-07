@@ -75,6 +75,6 @@
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-6.jpg?raw=true)
 
 
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-5.jpg?raw=true)
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-4.jpg?raw=true)
 
     
