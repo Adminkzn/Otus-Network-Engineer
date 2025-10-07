@@ -104,7 +104,20 @@ S1(config-if)# spanning-tree vlan 1 cost 18
 Изменение стоимости на S1 не повлияло на выбор порта на S3, потому что S3 по-прежнему видит более короткий путь напрямую к корневому мосту через свой порт F0/2.
 
 #### Часть 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов
-##### a.	Включите порты F0/1 и F0/3 на всех коммутаторах.
+##### 	Включите порты F0/1 и F0/3 на всех коммутаторах.
+
+На S1, S2, S3
+(config)#interface range fa0/1, fa0/3
+(config-if-range)#no shutdown
+(config-if-range)#exit
+
+##### show spanning-tree S1, S3
+
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-10.jpg?raw=true)
+
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-11.jpg?raw=true)
+
+
 
 
 
