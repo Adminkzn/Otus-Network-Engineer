@@ -52,29 +52,23 @@
     S3(config-if-range)#exit
 ##### Шаг 2:	Настройте подключенные порты в качестве транковых. 
 ##### Шаг 3:	Включите порты F0/2 и F0/4 на всех коммутаторах.
-    S1(config)#interface range fa0/1-4
+    S1(config)#interface range fa0/2, fa0/4
     S1(config-if-range)#switchport mode trunk
     S1(config-if-range)#no shutdown
     S1(config-if-range)#exit
     
-    S2(config)#interface range fa0/1-4
+    S2(config)#interface range fa0/2, fa0/4
     S2(config-if-range)#switchport mode trunk
     S2(config-if-range)#no shutdown
     S2(config-if-range)#exit
     
-    S3(config)#interface range fa0/1-4
+    S3(config)#interface range fa0/2, fa0/4
     S3(config-if-range)#switchport mode trunk
     S3(config-if-range)#no shutdown
     S3(config-if-range)#exit
 ##### Шаг 4:	Отобразите данные протокола spanning-tree.
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-7.jpg?raw=true)
 
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-8.jpg?raw=true)
 
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-3.jpg?raw=true)
-
-
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-6.jpg?raw=true)
-
-
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-4.jpg?raw=true)
-
-    
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-9.jpg?raw=true)
