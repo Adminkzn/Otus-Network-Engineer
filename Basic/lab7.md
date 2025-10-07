@@ -67,8 +67,14 @@
     S3(config-if-range)#no shutdown
     S3(config-if-range)#exit
 ##### Шаг 4:	Отобразите данные протокола spanning-tree.
+
+
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-3.jpg?raw=true)
+
+
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-6.jpg?raw=true)
+
+
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-5.jpg?raw=true)
 
     
