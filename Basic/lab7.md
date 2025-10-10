@@ -138,3 +138,42 @@ Bridge ID соседнего коммутатора
 
 
 
+#### Работа над ошибками
+Обнулил все коммутаторы и выполнил на них команды 
+        
+        erase startup-config
+        reload
+        
+        hostname
+        
+        interface range fa0/1-4
+        switchport mode trunk
+        no shutdown
+        
+        interface range fa0/2, fa0/4
+        no shutdown
+        exit
+        
+        show spanning-tree
+		
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-14.jpg?raw=true)
+
+Коммутатор с заблокированым портом S3(Fa0/4            Altn BLK 19        128.4    P2p), на нем выполняем команду:
+        
+    S3(config)# interface f0/2
+    S3(config-if)# spanning-tree vlan 1 cost 18
+	
+Смотрим изменения 
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-13.jpg?raw=true)
+
+теперь S3 имеет 2 активных пути, а S1 заблокировал Fa0/4 для предотвращения питель 
+
+
+
+
+
+
+
+
+
+
