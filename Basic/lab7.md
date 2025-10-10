@@ -164,6 +164,7 @@ Bridge ID соседнего коммутатора
     S3(config-if)# spanning-tree vlan 1 cost 18
 	
 Смотрим изменения 
+
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%207-13.jpg?raw=true)
 
 теперь S3 имеет 2 активных пути, а S1 заблокировал Fa0/4 для предотвращения питель 
