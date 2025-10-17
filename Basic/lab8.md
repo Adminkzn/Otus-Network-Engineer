@@ -109,6 +109,26 @@ R2 G0/0/1: 192.168.1.97
     Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/8 ms
 
 #### Шаг 5.	Настройте G0/1 на R2, затем G0/0/0 и статическую маршрутизацию для обоих маршрутизаторов
+**a.	Настройте G0/0/1 на R2**
+    R2(config)#interface gigabitEthernet 0/0/1
+    R2(config-if)#ip address 192.168.1.97 255.255.255.240
+    R2(config-if)#no shutdown
+
+**b.	Настройте интерфейс G0/0/0**
+    
+    R1(config)#interface gigabitEthernet 0/0/0
+    R1(config-if)#ip address 10.0.0.1 255.255.255.252
+    R1(config-if)#no shutdown 
+    R1(config-if)#exit
+    R1(config)#ip route 0.0.0.0 10.0.0.2
+	
+    R2(config)#interface g0/0/0
+    R2(config-if)#ip address 10.0.0.2 255.255.255.252
+    R2(config-if)#no shutdown 
+    R2(config-if)#exit
+    R2(config)#ip route 0.0.0.0 10.0.0.1
+    
+    
 #### Шаг 6.	Настройте базовые параметры каждого коммутатора
 #### Шаг 7.	Создайте сети VLAN на коммутаторе S1
 #### Шаг 8.	Назначьте сети VLAN соответствующим интерфейсам коммутатора
