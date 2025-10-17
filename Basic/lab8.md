@@ -110,9 +110,10 @@ R2 G0/0/1: 192.168.1.97
 
 #### Шаг 5.	Настройте G0/1 на R2, затем G0/0/0 и статическую маршрутизацию для обоих маршрутизаторов
 **a.	Настройте G0/0/1 на R2**
-    R2(config)#interface gigabitEthernet 0/0/1
-    R2(config-if)#ip address 192.168.1.97 255.255.255.240
-    R2(config-if)#no shutdown
+
+     R2(config)#interface gigabitEthernet 0/0/1
+     R2(config-if)#ip address 192.168.1.97 255.255.255.240
+     R2(config-if)#no shutdown
 
 **b.	Настройте интерфейс G0/0/0**
     
