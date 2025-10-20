@@ -292,6 +292,7 @@ R2 G0/0/1: 192.168.1.97
 	
 	
 Проверка работы dhcp на PC-A
+
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%208-3.jpg?raw=true)
 
 ### Часть 3.	Настройка и проверка DHCP-ретрансляции на R2
