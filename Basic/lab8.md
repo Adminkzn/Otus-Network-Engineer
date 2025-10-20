@@ -244,4 +244,60 @@ R2 G0/0/1: 192.168.1.97
 
     
 #### Шаг 8.	Назначьте сети VLAN соответствующим интерфейсам коммутатора
+**S1**
+    S1(config)#interface f0/5
+    S1(config-if)#switchport mode trunk
+    S1(config-if)#switchport trunk native vlan 1000
+    S1(config-if)#switchport trunk allowed vlan 100,200,1000
+    S1(config-if)#no shutdown
+    S1(config-if)#exit
+	
+**S2**
+    S2(config)#interface f0/18
+    S2(config-if)#switchport mode access
+    S2(config-if)#switchport access vlan 1
+    S2(config-if)#no shutdown
+    S2(config-if)#exit
+    S2(config)#interface f0/5
+    S2(config-if)#switchport mode trunk
+    S2(config-if)#description Connected to R2 G0/0/1
+    S2(config-if)#no shutdown
+    S2(config-if)#exit
+	
+
+
 #### Шаг 9.	Вручную настройте интерфейс S1 F0/5 в качестве транка 802.1Q
+
+    S1(config)#interface f0/5
+    S1(config-if)#switchport mode trunk
+    S1(config-if)#switchport trunk native vlan 1000
+    S1(config-if)#switchport trunk allowed vlan 100,200,1000
+    S1(config-if)#exit
+
+
+### Часть 2.	Настройка и проверка двух серверов DHCPv4 на R1
+
+    R1(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.5
+    R1(config)#ip dhcp excluded-address 192.168.1.97 192.168.1.101
+    R1(config)#ip dhcp pool VLAN100
+    R1(dhcp-config)#network 192.168.1.0 255.255.255.192
+    R1(dhcp-config)#domain-name CCNA-lab.com
+    R1(dhcp-config)#default-router 192.168.1.1
+    R1(dhcp-config)#exit
+    R1(config)#ip dhcp pool R2
+    R1(dhcp-config)#network 192.168.1.96 255.255.255.240
+    R1(dhcp-config)#domain-name CCNA-lab.com
+    R1(dhcp-config)#default-router 192.168.1.97
+    R1(dhcp-config)#exit
+	
+	
+Проверка работы dhcp на PC-A
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%208-3.jpg?raw=true)
+
+### Часть 3.	Настройка и проверка DHCP-ретрансляции на R2
+
+    R2(config)#interface gigabitEthernet 0/0/1
+    R2(config-if)#ip helper-address 10.0.0.1
+	
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%208-4.jpg?raw=true)
+
