@@ -46,7 +46,7 @@
     R2(config)#ipv6 route ::/0 2001:db8:acad:2::1
     R2#copy running-config startup-config 
     
-#### R1
+#### R1 ping R2
     	
     R1#ping 2001:db8:acad:2::2
     
