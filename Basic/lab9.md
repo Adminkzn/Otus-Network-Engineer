@@ -104,7 +104,7 @@
     R2(config)#
 	
 
-PC-B пингует PC-A
+### PC-B пингует PC-A
 
 
 
