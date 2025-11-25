@@ -122,7 +122,7 @@
 ##### c.	Настройте описания интерфейса для портов, которые используются в S1 и S2.
 ##### d.	Установите для шлюза по умолчанию для VLAN управления значение 192.168.10.1 на обоих коммутаторах.
 ######    S1
-   S1(config)#hostname S1
+    S1(config)#hostname S1
     S1(config)#no ip domain-lookup 
     S1(config)#ip default-gateway 192.168.10.1
     S1(config)#interface fastEthernet 0/5
