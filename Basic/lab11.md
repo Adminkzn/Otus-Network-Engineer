@@ -139,9 +139,10 @@
 ###### Добавьте VLAN 10 на S1 и S2 и назовите VLAN - Management.
 ##### Шаг 2. Сконфигруриуйте SVI для VLAN 10.
 ###### Настройте IP-адрес в соответствии с таблицей адресации для SVI для VLAN 10 на S1 и S2. Включите интерфейсы SVI и предоставьте описание для интерфейса.
-##### Шаг 3. Настройте VLAN 333 с именем Native на S1 и S2.Шаг 3. 
+##### Шаг 3. Настройте VLAN 333 с именем Native на S1 и S2.
 ##### Шаг 4. Настройте VLAN 999 с именем ParkingLot на S1 и S2.
-###### S1:
+
+######  S1:
     S1(config-if)#vlan 10
     S1(config-vlan)#name Management
     S1(config-vlan)#ex
@@ -164,6 +165,38 @@
     S1(config)#interface vlan 999
     %LINK-5-CHANGED: Interface Vlan999, changed state to up
     S1(config-if)#ex
+	S1(config)#interface range fastEthernet 0/5, fastEthernet 0/6
+	S1(config-if-range)#switchport mode access 
+	S1(config-if-range)#switchport access vlan 10
+	S1(config-if-range)#ex
+    S1(config)#interface fastEthernet 0/1
+    S1(config-if)#switchport mode trunk 
+    S1(config-if)#switchport trunk native vlan 333
+    S1(config-if)#switchport nonegotiate 
+	S1(config-if)#ex
+	S1(config)#interface range fastEthernet 0/2-4
+    S1(config-if-range)#switchport mode access 
+    S1(config-if-range)#switchport access vlan 999
+    S1(config-if-range)#shutdown 
+    S1(config-if-range)#interface range fastEthernet 0/7-24
+    S1(config-if-range)#switchport mode access 
+    S1(config-if-range)#switchport access vlan 999
+    S1(config-if-range)#shutdown 
+    S1(config-if-range)#ex
+    S1(config)#interface gigabitEthernet 0/1
+    S1(config-if)#switchport mode access 
+    S1(config-if)#switchport access vlan 999
+    S1(config-if)#shutdown 
+    S1(config-if)#ex
+    S1(config)#interface gigabitEthernet 0/2
+    S1(config-if)#switchport mode access 
+    S1(config-if)#switchport access vlan 999
+    S1(config-if)#shutdown 
+
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%2011-4.jpg?raw=true)
+
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%2011-5.jpg?raw=true)
+
 
 
 
