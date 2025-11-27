@@ -2,6 +2,7 @@
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%2011-2.jpg?raw=true)
 
 ### Часть 1. Настройка основного сетевого устройства
+###### Настройка топологии сети 
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%2011-3.jpg?raw=true)
 ###### Настройте маршрутизатор R1
     R1#show running-config 
