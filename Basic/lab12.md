@@ -1,7 +1,7 @@
 ![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%2012-1.jpg?raw=true)
 #### Часть 1. Создание сети и настройка основных параметров устройства
 ##### Шаг 1. Создайте сеть согласно топологии.
-
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/img/lab%2012-2.jpg?raw=true)
 ##### Шаг 2. Произведите базовую настройку маршрутизаторов.
 ###### Настройка на примере R1
     Router>enable
