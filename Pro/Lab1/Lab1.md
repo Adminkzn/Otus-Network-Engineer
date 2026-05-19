@@ -10,7 +10,7 @@
 
 #### Разработаете и задокументируете адресное пространство для лабораторного стенда.
 
-##### 1. Сеть управления
+##### 1. Сеть управления (Management)
 |  Устройство |  IP-Адрес | Маска | Vlan |Коментарий |
 | ------------ | ------------ |------------ |------------ | ------------ |
 |  VPC1 | | | | |
@@ -44,6 +44,34 @@
 |  VPC30 | | | | |
 |  VPC31 | | | | |
 |  R32 |  10.255.255.20 |255.255.255.0|999||
+
+##### Базовая настройка устройств на примере SW3
+    Switch>
+    Switch>enable
+    Switch#configure terminal
+    Switch(config)#hostname SW3
+    SW3(config)#no ip domain-lookup
+    SW3(config)#enable secret cisco
+    SW3(config)#service password-encryption
+    SW3(config)#username admin privilege 15 secret admin
+    SW3(config)#ip domain-name otus.ru
+    SW3(config)#crypto key generate rsa general-keys modulus 2048
+    SW3(config)#ip ssh version 2
+    SW3(config)#line console 0
+    SW3(config-line)#login local
+    SW3(config-line)#exec-timeout 5 0
+    SW3(config-line)#logging synchronous
+    SW3(config-line)#exit
+    SW3(config)#line vty 0 4
+    SW3(config-line)#login local
+    SW3(config-line)#exec-timeout 5 0
+    SW3(config-line)#logging synchronous
+    SW3(config-line)#exit
+    SW3(config)#banner motd #SW3#
+    SW3(config)#exit
+    SW3#write memory
+    
+
 
 
 
