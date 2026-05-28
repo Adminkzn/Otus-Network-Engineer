@@ -183,18 +183,18 @@
 
 #### Настройка SW2
 <details>
-SW2#show running-config
-Building configuration...
+    SW2#show running-config
+    Building configuration...
 
-Current configuration : 1774 bytes
-!
-! Last configuration change at 07:20:52 UTC Thu May 28 2026
-!
-version 15.1
-service timestamps debug datetime msec
-service timestamps log datetime msec
-service password-encryption
-service compress-config
+    Current configuration : 1774 bytes
+    !
+    ! Last configuration change at 07:20:52 UTC Thu May 28 2026
+    !
+    version 15.1
+    service timestamps debug datetime msec
+    service timestamps log datetime msec
+    service password-encryption
+    service compress-config
 !
 hostname SW2
 !
