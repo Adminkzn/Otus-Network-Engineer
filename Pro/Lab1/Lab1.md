@@ -310,7 +310,6 @@ line vty 0 4
 !
 end
 
-
 </details>
 
 #### Настройка SW3
