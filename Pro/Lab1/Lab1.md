@@ -183,8 +183,7 @@
 
 #### Настройка SW2
 <details>
-
-    SW2#show running-config
+SW2#show running-config
 Building configuration...
 
 Current configuration : 1774 bytes
@@ -309,9 +308,7 @@ line vty 0 4
  transport input ssh
 !
 end
-
-	
-	</details>    
+</details>
 
 #### Настройка SW3
 <details>
