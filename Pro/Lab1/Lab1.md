@@ -14,7 +14,7 @@
 |  Устройство |  IP-Адрес | MGMT VLAN | Loopback |Коментарий |
 | ------------ | ------------ |------------ | ------------ | ------------ |
 |  SW2 | 10.255.254.2/24 |999|-||
-|  SW3 | 10.255.254.3/24 |999|-||
+|  SW3 | 10.255.254.3/24 |999|10.255.255.3/32||
 |  SW4 | 10.255.254.4/24 |999|-||
 |  SW5 | 10.255.254.5/24 |999|-||
 |  SW9 | 10.255.254.9/24 |999|-||
@@ -182,37 +182,135 @@
 ------------
 
 
-#### Базовая настройка устройств на примере SW3
-    Switch>
-    Switch>enable
-    Switch#configure terminal
-    Switch(config)#hostname SW3
-    SW3(config)#no ip domain-lookup
-    SW3(config)#enable secret cisco
-    SW3(config)#service password-encryption
-    SW3(config)#username admin privilege 15 secret admin
-    SW3(config)#ip domain-name otus.ru
-    SW3(config)#crypto key generate rsa general-keys modulus 2048
-    SW3(config)#ip ssh version 2
-    SW3(config)#line console 0
-    SW3(config-line)#login local
-    SW3(config-line)#exec-timeout 5 0
-    SW3(config-line)#logging synchronous
-    SW3(config-line)#exit
-    SW3(config)#line vty 0 4
-    SW3(config-line)#login local
-    SW3(config-line)#exec-timeout 5 0
-    SW3(config-line)#logging synchronous
-    SW3(config-line)#exit
-    SW3(config)#banner motd #SW3#
-    SW3(config)#exit
-    SW3#write memory
+#### Настройка SW3
+
+    SW3#show running-config
+    Building configuration...
     
-#### Настройка vlan на коммутаторах на примере SW3
-
-#### Настройка RSTP 
-
-#### Настройка ...
+    Current configuration : 1784 bytes
+    !
+    ! Last configuration change at 06:37:09 UTC Thu May 28 2026
+    !
+    version 15.1
+    service timestamps debug datetime msec
+    service timestamps log datetime msec
+    service password-encryption
+    service compress-config
+    !
+    hostname SW3
+    !
+    boot-start-marker
+    boot-end-marker
+    !
+    !
+    enable secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
+    !
+    username admin privilege 15 secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
+    no aaa new-model
+    !
+    ip cef
+    !
+    !
+    no ip domain-lookup
+    ip domain-name otus.ru
+    no ipv6 cef
+    ipv6 multicast rpf use-bgp
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    spanning-tree mode rapid-pvst
+    spanning-tree extend system-id
+    spanning-tree vlan 1-4094 priority 61440
+    !
+    !
+    !
+    !
+    vlan internal allocation policy ascending
+    !
+    ip ssh version 2
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    interface Loopback0
+     ip address 10.255.255.3 255.255.255.255
+    !
+    interface Ethernet0/0
+     description TO-SW4-E0/0
+     switchport trunk encapsulation dot1q
+     switchport trunk allowed vlan 10,999
+     switchport mode trunk
+     duplex auto
+    !
+    interface Ethernet0/1
+     description TO-SW5-E0/1
+     switchport trunk encapsulation dot1q
+     switchport trunk allowed vlan 10,999
+     switchport mode trunk
+     duplex auto
+    !
+    interface Ethernet0/2
+     description TO-VPC1
+     switchport access vlan 10
+     switchport mode access
+     duplex auto
+     spanning-tree portfast
+    !
+    interface Ethernet0/3
+     duplex auto
+    !
+    interface Ethernet1/0
+     duplex auto
+    !
+    interface Ethernet1/1
+     duplex auto
+    !
+    interface Ethernet1/2
+     duplex auto
+    !
+    interface Ethernet1/3
+     duplex auto
+    !
+    interface Vlan999
+     description MANAGEMENT
+     ip address 10.255.254.3 255.255.255.0
+     shutdown
+    !
+    ip default-gateway 10.255.254.254
+    !
+    no ip http server
+    !
+    !
+    !
+    !
+    !
+    control-plane
+    !
+    banner motd ^CSW3^C
+    !
+    line con 0
+     exec-timeout 5 0
+     logging synchronous
+     login local
+    line aux 0
+    line vty 0 4
+     exec-timeout 5 0
+     logging synchronous
+     login local
+     transport input ssh
+    !
+    end
+    
 
 
 
