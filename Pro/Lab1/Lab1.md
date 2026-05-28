@@ -13,9 +13,9 @@
 #### 1. Сеть управления (MGMT) и Loopback интерфейсы
 |  Устройство |  IP-Адрес | MGMT VLAN | Loopback |Коментарий |
 | ------------ | ------------ |------------ | ------------ | ------------ |
-|  SW2 | 10.255.254.2/24 |999|10.255.255.3/32||
+|  SW2 | 10.255.254.2/24 |999|10.255.255.2/32||
 |  SW3 | 10.255.254.3/24 |999|10.255.255.3/32||
-|  SW4 | 10.255.254.4/24 |999|-||
+|  SW4 | 10.255.254.4/24 |999|10.255.255.4/32||
 |  SW5 | 10.255.254.5/24 |999|-||
 |  SW9 | 10.255.254.9/24 |999|-||
 |  SW10 | 10.255.254.10/24 |999|-||
@@ -308,6 +308,19 @@
      transport input ssh
     !
     end
+	
+	SW2#show vlan brief
+    VLAN Name                             Status    Ports
+    ---- -------------------------------- --------- -------------------------------
+    1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
+                                                Et1/3
+    70   VPC7                             active    Et0/2
+    999  MANAGEMENT                       active
+    1002 fddi-default                     act/unsup
+    1003 token-ring-default               act/unsup
+    1004 fddinet-default                  act/unsup
+    1005 trnet-default                    act/unsup
+
 </details>
 
 #### Настройка SW3
@@ -439,6 +452,19 @@
      transport input ssh
     !
     end
+	
+	SW3#show vlan brief
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
+                                                Et1/3
+     10   VPC1                             active    Et0/2
+     999  MANAGEMENT                       active
+     1002 fddi-default                     act/unsup
+     1003 token-ring-default               act/unsup
+     1004 fddinet-default                  act/unsup
+     1005 trnet-default                    act/unsup
+
 	
 	</details>    
 
