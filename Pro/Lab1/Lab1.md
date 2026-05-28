@@ -195,119 +195,119 @@
     service timestamps log datetime msec
     service password-encryption
     service compress-config
-!
-hostname SW2
-!
-boot-start-marker
-boot-end-marker
-!
-!
-enable secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
-!
-username admin privilege 15 secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
-no aaa new-model
-!
-ip cef
-!
-!
-no ip domain-lookup
-ip domain-name otus.ru
-no ipv6 cef
-ipv6 multicast rpf use-bgp
-!
-!
-!
-!
-!
-!
-!
-!
-spanning-tree mode rapid-pvst
-spanning-tree extend system-id
-spanning-tree vlan 1-4094 priority 61440
-!
-!
-!
-!
-vlan internal allocation policy ascending
-!
-ip ssh version 2
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface Loopback0
- ip address 10.255.255.2 255.255.255.255
-!
-interface Ethernet0/0
- description TO-SW5-E0/0
- switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 70,999
- switchport mode trunk
- duplex auto
-!
-interface Ethernet0/1
- description TO-SW4-E0/1
- switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 70,999
- switchport mode trunk
- duplex auto
-!
-interface Ethernet0/2
- description TO-VPC7
- switchport access vlan 70
- switchport mode access
- duplex auto
- spanning-tree portfast
-!
-interface Ethernet0/3
- duplex auto
-!
-interface Ethernet1/0
- duplex auto
-!
-interface Ethernet1/1
- duplex auto
-!
-interface Ethernet1/2
- duplex auto
-!
-interface Ethernet1/3
- duplex auto
-!
-interface Vlan999
- description MANAGEMENT
- ip address 10.255.254.2 255.255.255.0
-!
-ip default-gateway 10.255.254.254
-!
-no ip http server
-!
-!
-!
-!
-!
-control-plane
-!
-banner motd ^CSW2^C
-!
-line con 0
- exec-timeout 5 0
- logging synchronous
- login local
-line aux 0
-line vty 0 4
- exec-timeout 5 0
- logging synchronous
- login local
- transport input ssh
-!
-end
+    !
+    hostname SW2
+    !
+    boot-start-marker
+    boot-end-marker
+    !
+    !
+    enable secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
+    !
+    username admin privilege 15 secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
+    no aaa new-model
+    !
+    ip cef
+    !
+    !
+    no ip domain-lookup
+    ip domain-name otus.ru
+    no ipv6 cef
+    ipv6 multicast rpf use-bgp
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    spanning-tree mode rapid-pvst
+    spanning-tree extend system-id
+    spanning-tree vlan 1-4094 priority 61440
+    !
+    !
+    !
+    !
+    vlan internal allocation policy ascending
+    !
+    ip ssh version 2
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    interface Loopback0
+     ip address 10.255.255.2 255.255.255.255
+    !
+    interface Ethernet0/0
+     description TO-SW5-E0/0
+     switchport trunk encapsulation dot1q
+     switchport trunk allowed vlan 70,999
+     switchport mode trunk
+     duplex auto
+    !
+    interface Ethernet0/1
+     description TO-SW4-E0/1
+     switchport trunk encapsulation dot1q
+     switchport trunk allowed vlan 70,999
+     switchport mode trunk
+     duplex auto
+    !
+    interface Ethernet0/2
+     description TO-VPC7
+     switchport access vlan 70
+     switchport mode access
+     duplex auto
+     spanning-tree portfast
+    !
+    interface Ethernet0/3
+     duplex auto
+    !
+    interface Ethernet1/0
+     duplex auto
+    !
+    interface Ethernet1/1
+     duplex auto
+    !
+    interface Ethernet1/2
+     duplex auto
+    !
+    interface Ethernet1/3
+    duplex auto
+    !
+    interface Vlan999
+     description MANAGEMENT
+     ip address 10.255.254.2 255.255.255.0
+    !
+    ip default-gateway 10.255.254.254
+    !
+    no ip http server
+    !
+    !
+    !
+    !
+    !
+    control-plane
+    !
+    banner motd ^CSW2^C
+    !
+    line con 0
+     exec-timeout 5 0
+     logging synchronous
+     login local
+    line aux 0
+    line vty 0 4
+     exec-timeout 5 0
+     logging synchronous
+     login local
+     transport input ssh
+    !
+    end
 </details>
 
 #### Настройка SW3
