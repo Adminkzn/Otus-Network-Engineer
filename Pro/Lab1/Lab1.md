@@ -181,9 +181,11 @@
 
 ------------
 
+#### Настройка SW2
+
 
 #### Настройка SW3
-
+<details>
     SW3#show running-config
     Building configuration...
     
@@ -310,7 +312,7 @@
      transport input ssh
     !
     end
-    
+	</details>    
 
 
 
