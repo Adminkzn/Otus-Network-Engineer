@@ -505,150 +505,184 @@
 	
 </details>
 
-#### Настройка SW3
+#### Настройка SW4
 <details>
-
-    SW3#show running-config
-    Building configuration...
-    
-    Current configuration : 1784 bytes
-    !
-    ! Last configuration change at 06:37:09 UTC Thu May 28 2026
-    !
-    version 15.1
-    service timestamps debug datetime msec
-    service timestamps log datetime msec
-    service password-encryption
-    service compress-config
-    !
-    hostname SW3
-    !
-    boot-start-marker
-    boot-end-marker
-    !
-    !
-    enable secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
-    !
-    username admin privilege 15 secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
-    no aaa new-model
-    !
-    ip cef
-    !
-    !
-    no ip domain-lookup
-    ip domain-name otus.ru
-    no ipv6 cef
-    ipv6 multicast rpf use-bgp
-    !
-    !
-    !
-    !
-    !
-    !
-    !
-    !
-    spanning-tree mode rapid-pvst
-    spanning-tree extend system-id
-    spanning-tree vlan 1-4094 priority 61440
-    !
-    !
-    !
-    !
-    vlan internal allocation policy ascending
-    !
-    ip ssh version 2
-    !
-    !
-    !
-    !
-    !
-    !
-    !
-    !
-    !
-    interface Loopback0
-     ip address 10.255.255.3 255.255.255.255
-    !
-    interface Ethernet0/0
-     description TO-SW4-E0/0
-     switchport trunk encapsulation dot1q
-     switchport trunk allowed vlan 10,999
-     switchport mode trunk
-     duplex auto
-    !
-    interface Ethernet0/1
-     description TO-SW5-E0/1
-     switchport trunk encapsulation dot1q
-     switchport trunk allowed vlan 10,999
-     switchport mode trunk
-     duplex auto
-    !
-    interface Ethernet0/2
-     description TO-VPC1
-     switchport access vlan 10
-     switchport mode access
-     duplex auto
-     spanning-tree portfast
-    !
-    interface Ethernet0/3
-     duplex auto
-    !
-    interface Ethernet1/0
-     duplex auto
-    !
-    interface Ethernet1/1
-     duplex auto
-    !
-    interface Ethernet1/2
-     duplex auto
-    !
-    interface Ethernet1/3
-     duplex auto
-    !
-    interface Vlan999
-     description MANAGEMENT
-     ip address 10.255.254.3 255.255.255.0
-     shutdown
-    !
-    ip default-gateway 10.255.254.254
-    !
-    no ip http server
-    !
-    !
-    !
-    !
-    !
-    control-plane
-    !
-    banner motd ^CSW3^C
-    !
-    line con 0
-     exec-timeout 5 0
-     logging synchronous
-     login local
-    line aux 0
-    line vty 0 4
-     exec-timeout 5 0
-     logging synchronous
-     login local
-     transport input ssh
-    !
-    end
 	
-	SW3#show vlan brief
-     VLAN Name                             Status    Ports
-     ---- -------------------------------- --------- -------------------------------
-     1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
-                                                Et1/3
-     10   VPC1                             active    Et0/2
-     999  MANAGEMENT                       active
-     1002 fddi-default                     act/unsup
-     1003 token-ring-default               act/unsup
-     1004 fddinet-default                  act/unsup
-     1005 trnet-default                    act/unsup
-
+	SW4#show running-config
+	Building configuration...
 	
-	</details>    
+	Current configuration : 2246 bytes
+	!
+	! Last configuration change at 10:53:03 UTC Thu May 28 2026
+	!
+	version 15.1
+	service timestamps debug datetime msec
+	service timestamps log datetime msec
+	service password-encryption
+	service compress-config
+	!
+	hostname SW4
+	!
+	boot-start-marker
+	boot-end-marker
+	!
+	!
+	enable secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
+	!
+	username admin privilege 15 secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
+	no aaa new-model
+	!
+	ip cef
+	!
+	!
+	no ip domain-lookup
+	ip domain-name otus.ru
+	no ipv6 cef
+	ipv6 multicast rpf use-bgp
+	!
+	!
+	!
+	!
+	!
+	!
+	!
+	!
+	spanning-tree mode rapid-pvst
+	spanning-tree extend system-id
+	spanning-tree vlan 1-4094 priority 28672
+	!
+	!
+	!
+	!
+	vlan internal allocation policy ascending
+	!
+	ip ssh version 2
+	!
+	!
+	!
+	!
+	!
+	!
+	!
+	!
+	!
+	interface Loopback0
+	 ip address 10.255.255.4 255.255.255.255
+	!
+	interface Port-channel1
+	 switchport
+	 switchport trunk encapsulation dot1q
+	 switchport trunk allowed vlan 10,70,999
+	 switchport mode trunk
+	!
+	interface Ethernet0/0
+	 description TO-SW3-E0/0
+	 switchport trunk encapsulation dot1q
+	 switchport trunk allowed vlan 10,999
+	 switchport mode trunk
+	 duplex auto
+	!
+	interface Ethernet0/1
+	 description TO-SW2-E0/1
+	 switchport trunk encapsulation dot1q
+	 switchport trunk allowed vlan 70,999
+	 switchport mode trunk
+	 duplex auto
+	!
+	interface Ethernet0/2
+	 description TO-SW5-PORTCHANNEL
+ 	switchport trunk encapsulation dot1q
+ 	switchport trunk allowed vlan 10,70,999
+ 	switchport mode trunk
+ 	duplex auto
+ 	channel-group 1 mode active
+	!
+	interface Ethernet0/3
+	 description TO-SW5-PORTCHANNEL
+	 switchport trunk encapsulation dot1q
+	 switchport trunk allowed vlan 10,70,999
+	 switchport mode trunk
+	 duplex auto
+	 channel-group 1 mode active
+	!
+	interface Ethernet1/0
+	 description UNUSED
+	 shutdown
+	 duplex auto
+	!
+	interface Ethernet1/1
+	 description UNUSED
+	 shutdown
+	 duplex auto
+	!
+	interface Ethernet1/2
+	 description UNUSED
+	 shutdown
+	 duplex auto
+	!
+	interface Ethernet1/3
+	 description UNUSED
+	 shutdown
+	 duplex auto
+	!
+	interface Vlan999
+	 description MANAGEMENT
+	 ip address 10.255.254.4 255.255.255.0
+	!
+	ip default-gateway 10.255.254.254
+	!
+	no ip http server
+	!
+	!
+	!
+	!
+	!
+	control-plane
+	!
+	!
+	line con 0
+	 exec-timeout 5 0
+	 logging synchronous
+	 login local
+	line aux 0
+	line vty 0 4
+	 exec-timeout 5 0
+	 logging synchronous
+	 login local
+	 transport input ssh
+	!
+	end
+	
+	SW4#sh
+	SW4#show vl
+	SW4#show vlan
+	
+	VLAN Name                             Status    Ports
+	---- -------------------------------- --------- -------------------------------
+	1    default                          active    Et1/0, Et1/1, Et1/2, Et1/3
+	10   VPC1                             active
+	70   VPC7                             active
+	999  MANAGEMENT                       active
+	1002 fddi-default                     act/unsup
+	1003 token-ring-default               act/unsup
+	1004 fddinet-default                  act/unsup
+	1005 trnet-default                    act/unsup
+
+	VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+	---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+	1    enet  100001     1500  -      -      -        -    -        0      0
+	10   enet  100010     1500  -      -      -        -    -        0      0
+	70   enet  100070     1500  -      -      -        -    -        0      0
+	999  enet  100999     1500  -      -      -        -    -        0      0
+	1002 fddi  101002     1500  -      -      -        -    -        0      0
+	1003 tr    101003     1500  -      -      -        -    -        0      0
+	1004 fdnet 101004     1500  -      -      -        ieee -        0      0
+	1005 trnet 101005     1500  -      -      -        ibm  -        0      0
+	
+	Primary Secondary Type              Ports
+	------- --------- ----------------- ------------------------------------------
+
+</details>    
 
 
 
