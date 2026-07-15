@@ -539,7 +539,331 @@ copy running-config startup-config
 
 </details>
 
+<details>
+<summary><strong>Настройки SW9</strong></summary>
 
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname SW9
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
 
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
 
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
 
+! =========================
+! VLAN
+! =========================
+vlan 20
+ name SPB
+ exit
+
+vlan 99
+ name MANAGEMENT
+ exit
+
+! =========================
+! MANAGEMENT
+! =========================
+interface Vlan99
+ description Management VLAN99
+ ip address 10.255.2.9 255.255.255.0
+ no shutdown
+ exit
+
+ip default-gateway 10.255.2.254
+
+! =========================
+! TRUNK PORTS
+! =========================
+interface Ethernet0/0
+ description TRUNK_TO_SW10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+interface Ethernet0/1
+ description TRUNK_TO_SW10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+interface Ethernet0/3
+ description TRUNK_TO_R17
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+interface Ethernet1/0
+ description TRUNK_TO_R16
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+! =========================
+! ACCESS PORTS
+! =========================
+interface Ethernet0/2
+ description VPC8
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+! =========================
+! UNUSED PORTS
+! =========================
+interface range Ethernet1/1-3
+ description UNUSED
+ shutdown
+ exit
+
+spanning-tree mode rapid-pvst
+spanning-tree vlan 20,99 priority 16384
+
+end
+copy running-config startup-config
+```
+
+</details>
+
+<details>
+<summary><strong>Настройки SW10</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname SW10
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! VLAN
+! =========================
+vlan 20
+ name SPB
+ exit
+
+vlan 99
+ name MANAGEMENT
+ exit
+
+! =========================
+! MANAGEMENT
+! =========================
+interface Vlan99
+ description Management VLAN99
+ ip address 10.255.2.10 255.255.255.0
+ no shutdown
+ exit
+
+ip default-gateway 10.255.2.254
+
+! =========================
+! TRUNK PORTS
+! =========================
+interface Ethernet0/0
+ description TRUNK_TO_SW9
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+interface Ethernet0/1
+ description TRUNK_TO_SW9
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+interface Ethernet0/3
+ description TRUNK_TO_R16
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+interface Ethernet1/0
+ description TRUNK_TO_R17
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ exit
+
+! =========================
+! ACCESS PORTS
+! =========================
+interface Ethernet0/2
+ description VPC
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+! =========================
+! UNUSED PORTS
+! =========================
+interface range Ethernet1/1-3
+ description UNUSED
+ shutdown
+ exit
+
+spanning-tree mode rapid-pvst
+spanning-tree vlan 20,99 priority 24576
+
+end
+copy running-config startup-config
+```
+
+</details>
+
+<details>
+<summary><strong>Настройки SW29</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname SW29
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! VLAN
+! =========================
+vlan 30
+ name CHKD
+ exit
+
+vlan 99
+ name MANAGEMENT
+ exit
+
+! =========================
+! MANAGEMENT
+! =========================
+interface Vlan99
+ description Management
+ ip address 10.255.3.29 255.255.255.0
+ no shutdown
+ exit
+
+ip default-gateway 10.255.3.254
+
+! =========================
+! TRUNK PORTS
+! =========================
+interface Ethernet0/2
+ description TRUNK_TO_R28
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30,99
+ exit
+
+! =========================
+! ACCESS PORTS
+! =========================
+interface Ethernet0/0
+ description VPC30
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+interface Ethernet0/1
+ description VPC31
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+! =========================
+! UNUSED PORTS
+! =========================
+interface Ethernet0/3
+ description UNUSED
+ shutdown
+ exit
+
+spanning-tree mode rapid-pvst
+spanning-tree vlan 30,99 priority 24576
+
+end
+copy running-config startup-config
+```
+
+</details>
