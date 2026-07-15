@@ -951,19 +951,12 @@ copy running-config startup-config
 !=========================
 hostname R19
 no ip domain-lookup
-
 enable secret admin
-
 service password-encryption
-
 username admin privilege 15 secret admin
-
 ip domain-name otus.ru
-
 crypto key generate rsa general-keys modulus 2048
-
 ip ssh version 2
-
 banner motd # OTUS LAB - Authorized access only #
 
 ! =========================
