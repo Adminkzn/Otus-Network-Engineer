@@ -999,7 +999,7 @@ copy running-config startup-config
 </details>
 
 <details>
-<summary><strong>Настройка R14</strong></summary>
+<summary><strong>Настройка R22</strong></summary>
 
 ```cisco
 !=========================
