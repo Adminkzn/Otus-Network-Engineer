@@ -1350,3 +1350,77 @@ copy running-config startup-config
 ```
 
 </details>
+
+<details>
+<summary><strong>Настройка R24</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname R24
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.24 255.255.255.255
+ exit
+
+! =========================
+! P2P LINKS
+! =========================
+interface Ethernet0/0
+ description TO_R21
+ ip address 10.0.0.34 255.255.255.252
+ no shutdown
+ exit
+ 
+interface Ethernet0/1
+ description TO_R26
+ ip address 10.0.0.41 255.255.255.252
+ no shutdown
+ exit
+
+interface Ethernet0/2
+ description TO_R23
+ ip address 10.0.0.58 255.255.255.252
+ no shutdown
+ exit
+
+interface Ethernet0/3
+ description TO_R18
+ ip address 10.0.0.62 255.255.255.252
+ no shutdown
+ exit
+
+end
+copy running-config startup-config
+```
+
+</details>
