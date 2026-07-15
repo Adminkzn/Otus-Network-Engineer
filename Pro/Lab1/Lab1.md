@@ -920,7 +920,7 @@ interface Ethernet0/0
  
 interface Ethernet0/1
  description TO_R13
- ip address 10.0.0.9 255.255.255.252
+ ip address 10.0.0.10 255.255.255.252
  no shutdown
  exit
 
