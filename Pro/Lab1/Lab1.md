@@ -869,6 +869,212 @@ copy running-config startup-config
 </details>
 
 <details>
+<summary><strong>Настройка R12</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname R12
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.12 255.255.255.255
+ exit
+
+! =========================
+! P2P LINKS
+! =========================
+interface Ethernet0/2
+ description TO_R14
+ ip address 10.0.0.1 255.255.255.252
+ no shutdown
+ exit
+ 
+interface Ethernet0/3
+ description TO_R15
+ ip address 10.0.0.13 255.255.255.252
+ no shutdown
+ exit
+
+! =========================
+! OFFICE TRUNK
+! =========================
+
+interface Ethernet0/0
+ description TRUNK_TO_SW4
+ no shutdown
+ exit
+
+interface Ethernet0/1
+ description TO_SW5
+ no shutdown
+ exit
+
+! =========================
+! USER VLANs
+! =========================
+interface Ethernet0/0.99
+ description MSK_MANAGEMENT
+ encapsulation dot1Q 99
+ ip address 10.255.1.252 255.255.255.0
+
+ standby version 2
+ standby 99 ip 10.255.1.254
+ standby 99 priority 110
+ standby 99 preempt
+ 
+ exit 
+ 
+interface Ethernet0/0.10
+ description MSK_USERS
+ encapsulation dot1Q 10
+ ip address 192.168.10.252 255.255.255.0
+
+ standby version 2
+ standby 10 ip 192.168.10.254
+ standby 10 priority 110
+ standby 10 preempt
+
+ exit 
+
+end
+copy running-config startup-config
+```
+
+</details>
+
+<details>
+<summary><strong>Настройка R13</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname R13
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.13 255.255.255.255
+ exit
+
+! =========================
+! P2P LINKS
+! =========================
+interface Ethernet0/2
+ description TO_R15
+ ip address 10.0.0.5 255.255.255.252
+ no shutdown
+ exit
+ 
+interface Ethernet0/3
+ description TO_R14
+ ip address 10.0.0.9 255.255.255.252
+ no shutdown
+ exit
+
+! =========================
+! OFFICE TRUNK
+! =========================
+
+interface Ethernet0/0
+ description TRUNK_TO_SW5
+ no shutdown
+ exit
+
+interface Ethernet0/1
+ description TO_SW4
+ no shutdown
+ exit
+
+! =========================
+! USER VLANs
+! =========================
+interface Ethernet0/0.99
+ description MSK_MANAGEMENT
+ encapsulation dot1Q 99
+ ip address 10.255.1.253 255.255.255.0
+
+ standby version 2
+ standby 99 ip 10.255.1.254
+ standby 99 priority 100
+ standby 99 preempt
+ 
+ exit 
+ 
+interface Ethernet0/0.10
+ description MSK_USERS
+ encapsulation dot1Q 10
+ ip address 192.168.10.253 255.255.255.0
+
+ standby version 2
+ standby 10 ip 192.168.10.254
+ standby 10 priority 100
+ standby 10 preempt
+
+ exit 
+
+end
+copy running-config startup-config
+```
+
+</details>
+
+<details>
 <summary><strong>Настройка R14</strong></summary>
 
 ```cisco
