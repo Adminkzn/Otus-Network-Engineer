@@ -277,169 +277,102 @@
 
 #### Настройка SW3
 <details>
-	
-	SW3#show running-config
-	Building configuration...
+<summary><strong>SW3 Configuration</strong></summary>
 
-	Current configuration : 1933 bytes
-	!
-	! Last configuration change at 05:32:14 UTC Fri May 29 2026 by admin
-	!
-	version 15.1
-	service timestamps debug datetime msec
-	service timestamps log datetime msec
-	service password-encryption
-	service compress-config
-	!
-	hostname SW3
-	!
-	boot-start-marker
-	boot-end-marker
-	!
-	!
-	enable secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
-	!
-	username admin privilege 15 secret 4 X4ZqtPJ///KxuEWxHSsJrv3beQVnz2ise/xj8fF6eFU
-	no aaa new-model
-	!
-	ip cef
-	!
-	!
-	no ip domain-lookup
-	ip domain-name otus.ru
-	no ipv6 cef
-	ipv6 multicast rpf use-bgp
-	!
-	!
-	!
-	!
-	!
-	!
-	!
-	!
-	spanning-tree mode rapid-pvst
-	spanning-tree extend system-id
-	spanning-tree vlan 1-4094 priority 61440
-	!
-	!
-	!
-	!
-	vlan internal allocation policy ascending
-	!
-	ip ssh version 2
-	!
-	!
-	!
-	!
-	!
-	!
-	!
-	!
-	!
-	interface Loopback0
-	 ip address 10.255.255.3 255.255.255.255
-	!
-	interface Ethernet0/0
-	 description TO-SW4-E0/0
-	 switchport trunk encapsulation dot1q
-	 switchport trunk allowed vlan 10,999
-	 switchport mode trunk
-	 duplex auto
-	!
-	interface Ethernet0/1
-	 description TO-SW5-E0/1
-	 switchport trunk encapsulation dot1q
-	 switchport trunk allowed vlan 10,999
-	 switchport mode trunk
-	 duplex auto
-	!
-	interface Ethernet0/2
-	 description TO-VPC1
-	 switchport access vlan 10
-	 switchport mode access
-	 duplex auto
-	 spanning-tree portfast
-	!
-	interface Ethernet0/3
-	 description UNUSED
-	 shutdown
-	 duplex auto
-	!
-	interface Ethernet1/0
-	 description UNUSED
-	 shutdown
-	 duplex auto
-	!
-	interface Ethernet1/1
-	 description UNUSED
-	 shutdown
-	 duplex auto
-	!
-	interface Ethernet1/2
-	 description UNUSED
-	 shutdown
-	 duplex auto
-	!
-	interface Ethernet1/3
-	 description UNUSED
-	 shutdown
-	 duplex auto
-	!
-	interface Vlan999
-	 description MANAGEMENT
-	 ip address 10.255.254.3 255.255.255.0
-	!
-	ip default-gateway 10.255.254.254
-	!
-	no ip http server
-	!
-	!
-	!
-	!
-	!
-	control-plane
-	!
-	banner motd ^CSW3^C
-	!
-	line con 0
-	 exec-timeout 5 0
-	 logging synchronous
-	 login local
-	line aux 0
-	line vty 0 4
-	 exec-timeout 5 0
-	 logging synchronous
-	 login local
-	 transport input ssh
-	!
-	end
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname SW3
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
 
-	SW3#show vlan
-	
-	VLAN Name                             Status    Ports
-	---- -------------------------------- --------- -------------------------------
-	1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
-	                                                Et1/3
-	10   VPC1                             active    Et0/2
-	999  MANAGEMENT                       active
-	1002 fddi-default                     act/unsup
-	1003 token-ring-default               act/unsup
-	1004 fddinet-default                  act/unsup
-	1005 trnet-default                    act/unsup
-	
-	VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
-	---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
-	1    enet  100001     1500  -      -      -        -    -        0      0
-	10   enet  100010     1500  -      -      -        -    -        0      0
-	999  enet  100999     1500  -      -      -        -    -        0      0
-	1002 fddi  101002     1500  -      -      -        -    -        0      0
-	1003 tr    101003     1500  -      -      -        -    -        0      0
-	1004 fdnet 101004     1500  -      -      -        ieee -        0      0
-	1005 trnet 101005     1500  -      -      -        ibm  -        0      0
-	
-	Primary Secondary Type              Ports
-	------- --------- ----------------- ------------------------------------------
-	
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! VLAN
+! =========================
+vlan 10
+ name MSK
+ exit
+
+vlan 99
+ name MANAGEMENT
+ exit
+
+! =========================
+! MANAGEMENT
+! =========================
+interface Vlan99
+ description Management
+ ip address 10.255.1.3 255.255.255.0
+ no shutdown
+ exit
+
+ip default-gateway 10.255.1.254
+
+! =========================
+! TRUNK PORTS
+! =========================
+interface Ethernet0/0
+ description TRUNK_TO_SW4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ exit
+
+interface Ethernet0/1
+ description TRUNK_TO_SW5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ exit
+
+! =========================
+! ACCESS PORTS
+! =========================
+interface Ethernet0/2
+ description VPC1
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+! =========================
+! UNUSED PORTS
+! =========================
+interface range Ethernet0/3,Ethernet1/0-3
+ description UNUSED
+ shutdown
+ exit
+
+spanning-tree mode rapid-pvst
+
+end
+copy running-config startup-config
+```
+
 </details>
 
 #### Настройка SW4
