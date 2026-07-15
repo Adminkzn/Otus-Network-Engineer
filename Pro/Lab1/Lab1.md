@@ -25,7 +25,7 @@
 | SW10   | VLAN99    | 10.255.2.10/24 |
 | SW29   | VLAN99    | 10.255.3.29/24 |
 
-#### Management Gateway
+#### Management SVI Gateway
 
 | Site | HSRP VIP / Gateway | Router A | Router B |
 |------|--------------------|----------|----------|
