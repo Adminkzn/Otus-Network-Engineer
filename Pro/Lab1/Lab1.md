@@ -1413,7 +1413,7 @@ interface Ethernet0/0
  exit
 
 interface Ethernet0/2
- description TO_SW10
+ description TRUNK_TO_SW10
  no shutdown
  exit
 
