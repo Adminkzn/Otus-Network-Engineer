@@ -1317,7 +1317,6 @@ copy running-config startup-config
 </details>
 
 <details>
-<details>
 <summary><strong>Настройка R16</strong></summary>
 
 ```cisco
