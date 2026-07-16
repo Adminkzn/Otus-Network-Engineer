@@ -891,9 +891,10 @@ copy running-config startup-config
 <!-- ================================================================================================================ -->
 
 <details>
-<summary><strong>Настройки SW29</strong></summary>
+<summary><strong>Настройка SW29</strong></summary>
 
 ```cisco
+
 !=========================
 ! БАЗОВАЯ НАСТРОЙКА
 !=========================
@@ -922,23 +923,21 @@ line vty 0 4
  exec-timeout 10 0
  logging synchronous
  exit
-
+ 
 ! =========================
 ! VLAN
 ! =========================
 vlan 30
- name CHKD
+ name CHKD_USERS
  exit
-
 vlan 99
- name MANAGEMENT
+ name CHKD_MANAGEMENT
  exit
-
 ! =========================
 ! MANAGEMENT
 ! =========================
 interface Vlan99
- description Management
+ description CHKD_MANAGEMENT
  ip address 10.255.3.29 255.255.255.0
  no shutdown
  exit
@@ -977,19 +976,22 @@ interface Ethernet0/1
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface Ethernet0/3
+interface range Ethernet0/3
  description UNUSED
  shutdown
  exit
 
 spanning-tree mode rapid-pvst
 spanning-tree vlan 30,99 priority 24576
-
 end
 copy running-config startup-config
+
 ```
 
 </details>
+
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 
 <details>
 <summary><strong>Настройка R12</strong></summary>
