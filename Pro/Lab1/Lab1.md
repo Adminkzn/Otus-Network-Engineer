@@ -622,9 +622,10 @@ copy running-config startup-config
 <!-- ================================================================================================================ -->
 
 <details>
-<summary><strong>Настройки SW9</strong></summary>
+<summary><strong>Настройка SW9</strong></summary>
 
 ```cisco
+
 !=========================
 ! БАЗОВАЯ НАСТРОЙКА
 !=========================
@@ -663,17 +664,17 @@ ip routing
 ! VLAN
 ! =========================
 vlan 20
- name SPB
+ name SPB_USERS
  exit
 vlan 99
- name MANAGEMENT
+ name SPB_MANAGEMENT
  exit
 
 ! =========================
 ! SVI + VRRP
 ! =========================
 interface Vlan20
- description SPB
+ description SPB_USERS
  ip address 192.168.20.252 255.255.255.0
  vrrp 20 ip 192.168.20.254
  vrrp 20 priority 110
@@ -682,7 +683,7 @@ interface Vlan20
  exit
 
 interface Vlan99
- description MANAGEMENT
+ description SPB_MANAGEMENT
  ip address 10.255.2.252 255.255.255.0
  vrrp 99 ip 10.255.2.254
  vrrp 99 priority 110
@@ -717,11 +718,28 @@ interface Ethernet0/2
  spanning-tree portfast
  spanning-tree bpduguard enable
  exit
+ 
+! =========================
+! UPLINKS
+! =========================
+interface Ethernet1/0
+ description TO_R16
+ no switchport
+ ip address 10.0.0.109 255.255.255.252
+ no shutdown
+ exit
+
+interface Ethernet0/3
+ description TO_R17
+ no switchport
+ ip address 10.0.0.113 255.255.255.252
+ no shutdown
+ exit
 
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet1/1-3
+interface range Ethernet1/2-3
  description UNUSED
  shutdown
  exit
@@ -730,14 +748,18 @@ spanning-tree mode rapid-pvst
 spanning-tree vlan 20,99 priority 16384
 end
 copy running-config startup-config
-```
 
+```
 </details>
 
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+
 <details>
-<summary><strong>Настройки SW10</strong></summary>
+<summary><strong>Настройка SW10</strong></summary>
 
 ```cisco
+
 !=========================
 ! БАЗОВАЯ НАСТРОЙКА
 !=========================
@@ -777,17 +799,17 @@ ip routing
 ! VLAN
 ! =========================
 vlan 20
- name SPB
+ name SPB_USERS
  exit
 vlan 99
- name MANAGEMENT
+ name SPB_MANAGEMENT
  exit
 
 ! =========================
 ! SVI + VRRP
 ! =========================
 interface Vlan20
- description SPB
+ description SPB_USERS
  ip address 192.168.20.253 255.255.255.0
  vrrp 20 ip 192.168.20.254
  vrrp 20 priority 100
@@ -796,7 +818,7 @@ interface Vlan20
  exit
 
 interface Vlan99
- description MANAGEMENT
+ description SPB_MANAGEMENT
  ip address 10.255.2.253 255.255.255.0
  vrrp 99 ip 10.255.2.254
  vrrp 99 priority 100
@@ -831,11 +853,28 @@ interface Ethernet0/2
  spanning-tree portfast
  spanning-tree bpduguard enable
  exit
+ 
+! =========================
+! UPLINKS
+! =========================
+interface Ethernet1/0
+ description TO_R17
+ no switchport
+ ip address 10.0.0.121 255.255.255.252
+ no shutdown
+ exit
+
+interface Ethernet0/3
+ description TO_R16
+ no switchport
+ ip address 10.0.0.117 255.255.255.252
+ no shutdown
+ exit 
 
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet1/1-3
+interface range Ethernet1/2-3
  description UNUSED
  shutdown
  exit
@@ -844,9 +883,12 @@ spanning-tree mode rapid-pvst
 spanning-tree vlan 20,99 priority 24576
 end
 copy running-config startup-config
-```
 
+```
 </details>
+
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 
 <details>
 <summary><strong>Настройки SW29</strong></summary>
