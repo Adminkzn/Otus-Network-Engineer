@@ -19,19 +19,21 @@
 |--------|-----------|------------|
 | SW2    | VLAN99    | 10.255.1.2/24 |
 | SW3    | VLAN99    | 10.255.1.3/24 |
-| SW4    | VLAN99    | 10.255.1.4/24 |
-| SW5    | VLAN99    | 10.255.1.5/24 |
-| SW9    | VLAN99    | 10.255.2.9/24 |
-| SW10   | VLAN99    | 10.255.2.10/24 |
+| SW4    | VLAN99    | 10.255.1.252/24 |
+| SW5    | VLAN99    | 10.255.1.253/24 |
+| SW9    | VLAN99    | 10.255.2.252/24 |
+| SW10   | VLAN99    | 10.255.2.253/24 |
 | SW29   | VLAN99    | 10.255.3.29/24 |
 
 #### Management SVI Gateway
 
-| Site | HSRP VIP / Gateway | Router A | Router B |
-|------|--------------------|----------|----------|
-| MSK  | 10.255.1.254/24 | 10.255.1.252/24 (R12) | 10.255.1.253/24 (R13) |
-| SPB  | 10.255.2.254/24 | 10.255.2.252/24 (R16) | 10.255.2.253/24 (R17) |
-| CHKD | 10.255.3.254/24 (R28) | 10.255.3.252/24 (Reserved) | 10.255.3.253/24 (Reserved) |
+#### 5. Management Gateway
+
+| Site | VLAN | SW Master | SW Backup | VRRP VIP |
+|------|------|-----------|-----------|----------|
+| MSK | 99 | SW4 - 10.255.1.252 | SW5 - 10.255.1.253 | 10.255.1.254 |
+| SPB | 99 | SW9 - 10.255.2.252 | SW10 - 10.255.2.253 | 10.255.2.254 |
+| CHKD | 99 | - | - | 10.255.3.254 |
 ------------
 
 #### 2. Loopback 
@@ -66,13 +68,14 @@
 | CHKD | 30   | 192.168.30.0/24 | 192.168.30.254   |
 ------------
 
-#### 4. HSRP 
-| Office | HSRP Group | VLAN | Virtual IP | Active Router | Priority | Standby Router | Priority |
-|------|-----------|------|------------|--------------|----------|---------------|----------|
-| MSK | 10 | 10 | 192.168.10.254 | R12 (192.168.10.252) | 110 | R13 (192.168.10.253) | 100 |
-| MSK | 99 | 99 | 10.255.1.254 | R12 (10.255.1.252) | 110 | R13 (10.255.1.253) | 100 |
-| SPB | 20 | 20 | 192.168.20.254 | R16 (192.168.20.252) | 110 | R17 (192.168.20.253) | 100 |
-| SPB | 99 | 99 | 10.255.2.254 | R16 (10.255.2.252) | 110 | R17 (10.255.2.253) | 100 |
+#### 4. VRRP
+
+| Site | VRRP Group | VLAN | Virtual IP | Master Device | Master IP | Priority | Backup Device | Backup IP | Priority |
+|------|-----------|------|------------|--------------|-----------|----------|--------------|-----------|----------|
+| MSK | 10 | 10 | 192.168.10.254 | SW4 | 192.168.10.252 | 110 | SW5 | 192.168.10.253 | 100 |
+| MSK | 99 | 99 | 10.255.1.254 | SW4 | 10.255.1.252 | 110 | SW5 | 10.255.1.253 | 100 |
+| SPB | 20 | 20 | 192.168.20.254 | SW9 | 192.168.20.252 | 110 | SW10 | 192.168.20.253 | 100 |
+| SPB | 99 | 99 | 10.255.2.254 | SW9 | 10.255.2.252 | 110 | SW10 | 10.255.2.253 | 100 |
 
 | Office | Gateway |
 |------|---------|
@@ -128,6 +131,7 @@
 ------------
 
 #### 6. Настройки
+<!-- ================================================================================================================ -->
 <details>
 <summary><strong>Настройка SW2</strong></summary>
 
@@ -165,18 +169,18 @@ line vty 0 4
 ! VLAN
 ! =========================
 vlan 10
- name MSK
+ name MSK_USERS
  exit
 
 vlan 99
- name MANAGEMENT
+ name MSK_MANAGEMENT
  exit
 
 ! =========================
 ! MANAGEMENT
 ! =========================
 interface Vlan99
- description Management VLAN99
+ description MSK_MANAGEMENT VLAN99
  ip address 10.255.1.2 255.255.255.0
  no shutdown
  exit
@@ -226,7 +230,8 @@ copy running-config startup-config
 ```
 
 </details>
-
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 <details>
 <summary><strong>Настройка SW3</strong></summary>
 
@@ -328,7 +333,7 @@ copy running-config startup-config
 
 
 <details>
-<summary><strong>Настройки SW4</strong></summary>
+<summary><strong>Настройка SW4</strong></summary>
 
 ```cisco
 !=========================
@@ -361,26 +366,41 @@ line vty 0 4
  exit
 
 ! =========================
-! VLAN
+! L3 SWITCHING
+! =========================
+ip routing
+
+! =========================
+! VLAN 
 ! =========================
 vlan 10
- name MSK
+ name MSK_USERS
  exit
 
 vlan 99
- name MANAGEMENT
+ name MSK_MANAGEMENT
  exit
 
 ! =========================
-! MANAGEMENT
+! SVI + VRRP
 ! =========================
-interface Vlan99
- description Management VLAN99
- ip address 10.255.1.4 255.255.255.0
+interface Vlan10
+ description MSK
+ ip address 192.168.10.252 255.255.255.0
+ vrrp 10 ip 192.168.10.254
+ vrrp 10 priority 110
+ vrrp 10 preempt
  no shutdown
  exit
 
-ip default-gateway 10.255.1.254
+interface Vlan99
+ description MANAGEMENT
+ ip address 10.255.1.252 255.255.255.0
+ vrrp 99 ip 10.255.1.254
+ vrrp 99 priority 110
+ vrrp 99 preempt
+ no shutdown
+ exit
 
 ! =========================
 ! TRUNK PORTS
@@ -390,6 +410,7 @@ interface Ethernet0/0
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
 interface Ethernet0/1
@@ -397,6 +418,7 @@ interface Ethernet0/1
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
 interface Ethernet0/2
@@ -404,6 +426,7 @@ interface Ethernet0/2
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
 interface Ethernet0/3
@@ -411,20 +434,24 @@ interface Ethernet0/3
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
+! =========================
+! UPLINKS
+! =========================
 interface Ethernet1/0
- description TRUNK_TO_R12
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 10,99
+ description TO_R12
+ no switchport
+ ip address 10.0.0.93 255.255.255.252
+ no shutdown
  exit
 
 interface Ethernet1/1
- description TRUNK_TO_R13
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 10,99
+ description TO_R13
+ no switchport
+ ip address 10.0.0.97 255.255.255.252
+ no shutdown
  exit
 
 ! =========================
@@ -435,6 +462,9 @@ interface range Ethernet1/2-3
  shutdown
  exit
 
+! =========================
+! SPANNING TREE
+! =========================
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,99 priority 16384
 
@@ -445,7 +475,7 @@ copy running-config startup-config
 </details>
 
 <details>
-<summary><strong>Настройки SW5</strong></summary>
+<summary><strong>Настройка SW5</strong></summary>
 
 ```cisco
 !=========================
@@ -478,7 +508,12 @@ line vty 0 4
  exit
 
 ! =========================
-! VLAN
+! L3 SWITCHING
+! =========================
+ip routing
+
+! =========================
+! VLAN 
 ! =========================
 vlan 10
  name MSK
@@ -489,15 +524,25 @@ vlan 99
  exit
 
 ! =========================
-! MANAGEMENT
+! SVI + VRRP
 ! =========================
-interface Vlan99
- description Management VLAN99
- ip address 10.255.1.5 255.255.255.0
+interface Vlan10
+ description MSK
+ ip address 192.168.10.253 255.255.255.0
+ vrrp 10 ip 192.168.10.254
+ vrrp 10 priority 100
+ vrrp 10 preempt
  no shutdown
  exit
 
-ip default-gateway 10.255.1.254
+interface Vlan99
+ description MANAGEMENT
+ ip address 10.255.1.253 255.255.255.0
+ vrrp 99 ip 10.255.1.254
+ vrrp 99 priority 100
+ vrrp 99 preempt
+ no shutdown
+ exit
 
 ! =========================
 ! TRUNK PORTS
@@ -507,6 +552,7 @@ interface Ethernet0/0
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
 interface Ethernet0/1
@@ -514,6 +560,7 @@ interface Ethernet0/1
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
 interface Ethernet0/2
@@ -521,6 +568,7 @@ interface Ethernet0/2
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
 interface Ethernet0/3
@@ -528,20 +576,24 @@ interface Ethernet0/3
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ no shutdown
  exit
 
+! =========================
+! UPLINKS
+! =========================
 interface Ethernet1/0
- description TRUNK_TO_R13
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 10,99
+ description TO_R13
+ no switchport
+ ip address 10.0.0.105 255.255.255.252
+ no shutdown
  exit
 
 interface Ethernet1/1
- description TRUNK_TO_R12
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 10,99
+ description TO_R12
+ no switchport
+ ip address 10.0.0.101 255.255.255.252
+ no shutdown
  exit
 
 ! =========================
@@ -552,6 +604,9 @@ interface range Ethernet1/2-3
  shutdown
  exit
 
+! =========================
+! SPANNING TREE
+! =========================
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,99 priority 24576
 
@@ -595,26 +650,40 @@ line vty 0 4
  exit
 
 ! =========================
+! L3 SWITCHING
+! =========================
+ip routing
+
+! =========================
 ! VLAN
 ! =========================
 vlan 20
  name SPB
  exit
-
 vlan 99
  name MANAGEMENT
  exit
 
 ! =========================
-! MANAGEMENT
+! SVI + VRRP
 ! =========================
-interface Vlan99
- description Management VLAN99
- ip address 10.255.2.9 255.255.255.0
+interface Vlan20
+ description SPB
+ ip address 192.168.20.252 255.255.255.0
+ vrrp 20 ip 192.168.20.254
+ vrrp 20 priority 110
+ vrrp 20 preempt
  no shutdown
  exit
 
-ip default-gateway 10.255.2.254
+interface Vlan99
+ description MANAGEMENT
+ ip address 10.255.2.252 255.255.255.0
+ vrrp 99 ip 10.255.2.254
+ vrrp 99 priority 110
+ vrrp 99 preempt
+ no shutdown
+ exit
 
 ! =========================
 ! TRUNK PORTS
@@ -625,28 +694,14 @@ interface Ethernet0/0
  switchport mode trunk
  switchport trunk allowed vlan 20,99
  exit
-
+ 
 interface Ethernet0/1
  description TRUNK_TO_SW10
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 20,99
  exit
-
-interface Ethernet0/3
- description TRUNK_TO_R17
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- exit
-
-interface Ethernet1/0
- description TRUNK_TO_R16
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- exit
-
+ 
 ! =========================
 ! ACCESS PORTS
 ! =========================
@@ -668,7 +723,6 @@ interface range Ethernet1/1-3
 
 spanning-tree mode rapid-pvst
 spanning-tree vlan 20,99 priority 16384
-
 end
 copy running-config startup-config
 ```
@@ -709,26 +763,41 @@ line vty 0 4
  exit
 
 ! =========================
+! L3 SWITCHING
+! =========================
+ip routing
+
+ 
+! =========================
 ! VLAN
 ! =========================
 vlan 20
  name SPB
  exit
-
 vlan 99
  name MANAGEMENT
  exit
 
 ! =========================
-! MANAGEMENT
+! SVI + VRRP
 ! =========================
-interface Vlan99
- description Management VLAN99
- ip address 10.255.2.10 255.255.255.0
+interface Vlan20
+ description SPB
+ ip address 192.168.20.253 255.255.255.0
+ vrrp 20 ip 192.168.20.254
+ vrrp 20 priority 100
+ vrrp 20 preempt
  no shutdown
  exit
 
-ip default-gateway 10.255.2.254
+interface Vlan99
+ description MANAGEMENT
+ ip address 10.255.2.253 255.255.255.0
+ vrrp 99 ip 10.255.2.254
+ vrrp 99 priority 100
+ vrrp 99 preempt
+ no shutdown
+ exit 
 
 ! =========================
 ! TRUNK PORTS
@@ -739,28 +808,14 @@ interface Ethernet0/0
  switchport mode trunk
  switchport trunk allowed vlan 20,99
  exit
-
+ 
 interface Ethernet0/1
  description TRUNK_TO_SW9
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 20,99
  exit
-
-interface Ethernet0/3
- description TRUNK_TO_R16
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- exit
-
-interface Ethernet1/0
- description TRUNK_TO_R17
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- exit
-
+ 
 ! =========================
 ! ACCESS PORTS
 ! =========================
@@ -782,7 +837,6 @@ interface range Ethernet1/1-3
 
 spanning-tree mode rapid-pvst
 spanning-tree vlan 20,99 priority 24576
-
 end
 copy running-config startup-config
 ```
@@ -945,54 +999,18 @@ interface Ethernet0/3
  ip address 10.0.0.13 255.255.255.252
  no shutdown
  exit
-
-! =========================
-! OFFICE TRUNK
-! =========================
-
+ 
 interface Ethernet0/0
- description TRUNK_TO_SW4
+ description TO_SW4
+ ip address 10.0.0.94 255.255.255.252
  no shutdown
  exit
 
 interface Ethernet0/1
  description TO_SW5
+ ip address 10.0.0.102 255.255.255.252
  no shutdown
  exit
-
-! =========================
-! USER VLANs
-! =========================
-track 1 interface Ethernet0/2 line-protocol
-exit 
-track 2 interface Ethernet0/3 line-protocol
-exit 
-
-interface Ethernet0/0.99
- description MSK_MANAGEMENT
- encapsulation dot1Q 99
- ip address 10.255.1.252 255.255.255.0
- standby version 2
- standby 99 ip 10.255.1.254
- standby 99 priority 110
- standby 99 preempt
- standby 99 track 1 decrement 20
- standby 99 track 2 decrement 20
- 
- exit 
- 
-interface Ethernet0/0.10
- description MSK_USERS
- encapsulation dot1Q 10
- ip address 192.168.10.252 255.255.255.0
- standby version 2
- standby 10 ip 192.168.10.254
- standby 10 priority 110
- standby 10 preempt
- standby 10 track 1 decrement 20
- standby 10 track 2 decrement 20
-
- exit 
 
 end
 copy running-config startup-config
@@ -1056,47 +1074,17 @@ interface Ethernet0/3
  no shutdown
  exit
 
-! =========================
-! OFFICE TRUNK
-! =========================
-
 interface Ethernet0/0
- description TRUNK_TO_SW5
- no shutdown
- exit
-
-interface Ethernet0/1
  description TO_SW4
+ ip address 10.0.0.98 255.255.255.252
  no shutdown
  exit
-
-! =========================
-! USER VLANs
-! =========================
-interface Ethernet0/0.99
- description MSK_MANAGEMENT
- encapsulation dot1Q 99
- ip address 10.255.1.253 255.255.255.0
-
- standby version 2
- standby 99 ip 10.255.1.254
- standby 99 priority 100
- standby 99 preempt
  
- exit 
- 
-interface Ethernet0/0.10
- description MSK_USERS
- encapsulation dot1Q 10
- ip address 192.168.10.253 255.255.255.0
-
- standby version 2
- standby 10 ip 192.168.10.254
- standby 10 priority 100
- standby 10 preempt
-
- exit 
-
+interface Ethernet0/1
+ description TO_SW5
+ ip address 10.0.0.106 255.255.255.252
+ no shutdown
+ exit
 end
 copy running-config startup-config
 ```
@@ -1310,51 +1298,17 @@ interface Ethernet0/3
  no shutdown
  exit
  
-! =========================
-! OFFICE TRUNK
-! =========================
-
 interface Ethernet0/0
- description TRUNK_TO_SW10
+ description TO_SW10
+ ip address 10.0.0.118 255.255.255.252
  no shutdown
  exit
-
+ 
 interface Ethernet0/2
- description TRUNK_TO_SW9
+ description TO_SW9
+ ip address 10.0.0.110 255.255.255.252
  no shutdown
  exit
-
-! =========================
-! USER VLANs
-! =========================
-track 1 interface Ethernet0/1 line-protocol
-exit 
-
-interface Ethernet0/0.99
- description SPB_MANAGEMENT
- encapsulation dot1Q 99
- ip address 10.255.2.252 255.255.255.0
-
- standby version 2
- standby 99 ip 10.255.2.254
- standby 99 priority 110
- standby 99 preempt
- standby 99 track 1 decrement 20
- 
- exit 
- 
-interface Ethernet0/0.20
- description SPB_USERS
- encapsulation dot1Q 20
- ip address 192.168.20.252 255.255.255.0
-
- standby version 2
- standby 20 ip 192.168.20.254
- standby 20 priority 110
- standby 20 preempt
- standby 20 track 1 decrement 20
-
- exit 
 
 end
 copy running-config startup-config
@@ -1413,49 +1367,18 @@ interface Ethernet0/1
  exit
  
 ! =========================
-! OFFICE TRUNK
+! P2P LINKS
 ! =========================
-
 interface Ethernet0/0
- description TRUNK_TO_SW9
+ description TO_SW9
+ ip address 10.0.0.114 255.255.255.252
  no shutdown
  exit
-
+ 
 interface Ethernet0/2
- description TRUNK_TO_SW10
+ description TO_SW10
+ ip address 10.0.0.122 255.255.255.252
  no shutdown
- exit
-
-! =========================
-! USER VLANs
-! =========================
-interface Ethernet0/0.99
- description SPB_MANAGEMENT
- encapsulation dot1Q 99
- ip address 10.255.2.253 255.255.255.0
-
- standby version 2
- standby 99 ip 10.255.2.254
- standby 99 priority 100
- standby 99 preempt
- 
- exit 
- 
-interface Ethernet0/0.20
- description SPB_USERS
- encapsulation dot1Q 20
- ip address 192.168.20.253 255.255.255.0
-
- standby version 2
- standby 20 ip 192.168.20.254
- standby 20 priority 100
- standby 20 preempt
-
- exit 
-
-interface Ethernet0/3
- description UNUSED
- shutdown
  exit
 
 end
@@ -1463,6 +1386,7 @@ copy running-config startup-config
 ```
 
 </details>
+
 <details>
 <summary><strong>Настройка R18</strong></summary>
 
