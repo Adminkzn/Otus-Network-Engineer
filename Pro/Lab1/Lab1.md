@@ -954,15 +954,21 @@ interface Ethernet0/1
 ! =========================
 ! USER VLANs
 ! =========================
+track 1 interface Ethernet0/2 line-protocol
+exit 
+track 2 interface Ethernet0/3 line-protocol
+exit 
+
 interface Ethernet0/0.99
  description MSK_MANAGEMENT
  encapsulation dot1Q 99
  ip address 10.255.1.252 255.255.255.0
-
  standby version 2
  standby 99 ip 10.255.1.254
  standby 99 priority 110
  standby 99 preempt
+ standby 99 track 1 decrement 20
+ standby 99 track 2 decrement 20
  
  exit 
  
@@ -970,11 +976,12 @@ interface Ethernet0/0.10
  description MSK_USERS
  encapsulation dot1Q 10
  ip address 192.168.10.252 255.255.255.0
-
  standby version 2
  standby 10 ip 192.168.10.254
  standby 10 priority 110
  standby 10 preempt
+ standby 10 track 1 decrement 20
+ standby 10 track 2 decrement 20
 
  exit 
 
@@ -1310,6 +1317,7 @@ copy running-config startup-config
 </details>
 
 <details>
+<details>
 <summary><strong>Настройка R16</strong></summary>
 
 ```cisco
@@ -1378,13 +1386,16 @@ interface Ethernet0/0
  exit
 
 interface Ethernet0/2
- description TO_SW9
+ description TRUNK_TO_SW9
  no shutdown
  exit
 
 ! =========================
 ! USER VLANs
 ! =========================
+track 1 interface Ethernet0/1 line-protocol
+exit 
+
 interface Ethernet0/0.99
  description SPB_MANAGEMENT
  encapsulation dot1Q 99
@@ -1394,6 +1405,7 @@ interface Ethernet0/0.99
  standby 99 ip 10.255.2.254
  standby 99 priority 110
  standby 99 preempt
+ standby 99 track 1 decrement 20
  
  exit 
  
@@ -1406,6 +1418,7 @@ interface Ethernet0/0.20
  standby 20 ip 192.168.20.254
  standby 20 priority 110
  standby 20 preempt
+ standby 20 track 1 decrement 20
 
  exit 
 
