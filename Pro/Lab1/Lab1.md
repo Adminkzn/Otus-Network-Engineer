@@ -230,12 +230,12 @@ copy running-config startup-config
 ```
 
 </details>
+
 <!-- ================================================================================================================ -->
 <!-- ================================================================================================================ -->
+
 <details>
 <summary><strong>Настройка SW3</strong></summary>
-
-```cisco
 !=========================
 ! БАЗОВАЯ НАСТРОЙКА
 !=========================
@@ -264,23 +264,21 @@ line vty 0 4
  exec-timeout 10 0
  logging synchronous
  exit
-
+ 
 ! =========================
 ! VLAN
 ! =========================
 vlan 10
- name MSK
+ name MSK_USERS
  exit
-
 vlan 99
- name MANAGEMENT
+ name MSK_MANAGEMENT
  exit
-
 ! =========================
 ! MANAGEMENT
 ! =========================
 interface Vlan99
- description Management
+ description MSK_MANAGEMENT
  ip address 10.255.1.3 255.255.255.0
  no shutdown
  exit
@@ -296,14 +294,14 @@ interface Ethernet0/0
  switchport mode trunk
  switchport trunk allowed vlan 10,99
  exit
-
+ 
 interface Ethernet0/1
  description TRUNK_TO_SW5
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
  exit
-
+ 
 ! =========================
 ! ACCESS PORTS
 ! =========================
@@ -315,6 +313,7 @@ interface Ethernet0/2
  spanning-tree bpduguard enable
  exit
 
+
 ! =========================
 ! UNUSED PORTS
 ! =========================
@@ -324,13 +323,13 @@ interface range Ethernet0/3,Ethernet1/0-3
  exit
 
 spanning-tree mode rapid-pvst
-
 end
 copy running-config startup-config
-```
 
 </details>
 
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 
 <details>
 <summary><strong>Настройка SW4</strong></summary>
@@ -385,7 +384,7 @@ vlan 99
 ! SVI + VRRP
 ! =========================
 interface Vlan10
- description MSK
+ description MSK_USERS
  ip address 192.168.10.252 255.255.255.0
  vrrp 10 ip 192.168.10.254
  vrrp 10 priority 110
@@ -394,7 +393,7 @@ interface Vlan10
  exit
 
 interface Vlan99
- description MANAGEMENT
+ description MSK_MANAGEMENT
  ip address 10.255.1.252 255.255.255.0
  vrrp 99 ip 10.255.1.254
  vrrp 99 priority 110
@@ -474,6 +473,9 @@ copy running-config startup-config
 
 </details>
 
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+
 <details>
 <summary><strong>Настройка SW5</strong></summary>
 
@@ -516,18 +518,18 @@ ip routing
 ! VLAN 
 ! =========================
 vlan 10
- name MSK
+ name MSK_USERS
  exit
 
 vlan 99
- name MANAGEMENT
+ name MSK_MANAGEMENT
  exit
 
 ! =========================
 ! SVI + VRRP
 ! =========================
 interface Vlan10
- description MSK
+ description MSK_USERS
  ip address 192.168.10.253 255.255.255.0
  vrrp 10 ip 192.168.10.254
  vrrp 10 priority 100
@@ -536,7 +538,7 @@ interface Vlan10
  exit
 
 interface Vlan99
- description MANAGEMENT
+ description MSK_MANAGEMENT
  ip address 10.255.1.253 255.255.255.0
  vrrp 99 ip 10.255.1.254
  vrrp 99 priority 100
@@ -615,6 +617,9 @@ copy running-config startup-config
 ```
 
 </details>
+
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 
 <details>
 <summary><strong>Настройки SW9</strong></summary>
