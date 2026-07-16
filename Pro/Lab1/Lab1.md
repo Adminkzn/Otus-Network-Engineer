@@ -236,6 +236,8 @@ copy running-config startup-config
 
 <details>
 <summary><strong>Настройка SW3</strong></summary>
+ 
+```cisco
 !=========================
 ! БАЗОВАЯ НАСТРОЙКА
 !=========================
@@ -325,6 +327,8 @@ interface range Ethernet0/3,Ethernet1/0-3
 spanning-tree mode rapid-pvst
 end
 copy running-config startup-config
+
+```
 
 </details>
 
