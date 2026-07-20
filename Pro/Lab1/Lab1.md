@@ -1543,8 +1543,77 @@ copy running-config startup-config
 ```
 
 </details>
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+<details>
+<summary><strong>Настройка R32</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname R32
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.32 255.255.255.255
+ exit
+
+! =========================
+! UPLINKS
+! =========================
+interface Ethernet0/0
+ description TO_R16
+ ip address 10.0.0.90 255.255.255.252
+ no shutdown
+ exit
+ 
+interface range Ethernet0/1-3
+ description UNUSED
+ shutdown
+ exit
+
+end
+copy running-config startup-config
+```
+
+</details>
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+
+------------
+
 
 ### 9. Настройки CHKD
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 <details>
 <summary><strong>Настройка SW29</strong></summary>
 
@@ -1644,9 +1713,102 @@ copy running-config startup-config
 ```
 
 </details>
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 
+<details>
+<summary><strong>Настройка R28</strong></summary>
 
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname R28
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
 
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.28 255.255.255.255
+ exit
+
+! =========================
+! P2P LINKS
+! =========================
+interface Ethernet0/0
+ description TO_R26
+ ip address 10.0.0.50 255.255.255.252
+ no shutdown
+ exit
+ 
+interface Ethernet0/1
+ description TO_R25
+ ip address 10.0.0.70 255.255.255.252
+ no shutdown
+ exit
+
+! =========================
+! OFFICE TRUNK
+! =========================
+interface Ethernet0/2
+ description TRUNK_TO_SW29
+ no shutdown
+ exit
+
+! =========================
+! USER VLANs
+! =========================
+interface Ethernet0/2.30
+ description CHKD_USERS
+ encapsulation dot1Q 30
+ ip address 192.168.30.254 255.255.255.0
+ exit
+
+interface Ethernet0/2.99
+ description CHKD_MANAGEMENT
+ encapsulation dot1Q 99
+ ip address 10.255.3.254 255.255.255.0
+ exit
+
+interface Ethernet0/3
+ description UNUSED
+ shutdown
+ exit
+
+end
+copy running-config startup-config
+```
+
+</details>
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+
+------------
 
 <details>
 <summary><strong>Настройка R21</strong></summary>
@@ -2138,157 +2300,6 @@ interface Loopback0
 interface Ethernet0/0
  description TO_R25
  ip address 10.0.0.46 255.255.255.252
- no shutdown
- exit
- 
-interface range Ethernet0/1-3
- description UNUSED
- shutdown
- exit
-
-end
-copy running-config startup-config
-```
-
-</details>
-
-<details>
-<summary><strong>Настройка R28</strong></summary>
-
-```cisco
-!=========================
-! БАЗОВАЯ НАСТРОЙКА
-!=========================
-hostname R28
-no ip domain-lookup
-enable secret admin
-service password-encryption
-username admin privilege 15 secret admin
-ip domain-name otus.ru
-crypto key generate rsa general-keys modulus 2048
-ip ssh version 2
-banner motd # OTUS LAB - Authorized access only #
-
-! =========================
-! CONSOLE&&SSH
-! =========================
-line console 0
- login local
- exec-timeout 10 0
- logging synchronous
- exit
-
-line vty 0 4
- login local
- transport input ssh
- exec-timeout 10 0
- logging synchronous
- exit
-
-! =========================
-! LOOPBACK
-! =========================
-interface Loopback0
- description ROUTER_ID
- ip address 10.255.0.28 255.255.255.255
- exit
-
-! =========================
-! P2P LINKS
-! =========================
-interface Ethernet0/0
- description TO_R26
- ip address 10.0.0.50 255.255.255.252
- no shutdown
- exit
- 
-interface Ethernet0/1
- description TO_R25
- ip address 10.0.0.70 255.255.255.252
- no shutdown
- exit
-
-! =========================
-! OFFICE TRUNK
-! =========================
-interface Ethernet0/2
- description TRUNK_TO_SW29
- no shutdown
- exit
-
-! =========================
-! USER VLANs
-! =========================
-interface Ethernet0/2.30
- description CHKD_USERS
- encapsulation dot1Q 30
- ip address 192.168.30.254 255.255.255.0
- exit
-
-interface Ethernet0/2.99
- description CHKD_MANAGEMENT
- encapsulation dot1Q 99
- ip address 10.255.3.254 255.255.255.0
- exit
-
-interface Ethernet0/3
- description UNUSED
- shutdown
- exit
-
-end
-copy running-config startup-config
-```
-
-</details>
-
-<details>
-<summary><strong>Настройка R32</strong></summary>
-
-```cisco
-!=========================
-! БАЗОВАЯ НАСТРОЙКА
-!=========================
-hostname R32
-no ip domain-lookup
-enable secret admin
-service password-encryption
-username admin privilege 15 secret admin
-ip domain-name otus.ru
-crypto key generate rsa general-keys modulus 2048
-ip ssh version 2
-banner motd # OTUS LAB - Authorized access only #
-
-! =========================
-! CONSOLE&&SSH
-! =========================
-line console 0
- login local
- exec-timeout 10 0
- logging synchronous
- exit
-
-line vty 0 4
- login local
- transport input ssh
- exec-timeout 10 0
- logging synchronous
- exit
-
-! =========================
-! LOOPBACK
-! =========================
-interface Loopback0
- description ROUTER_ID
- ip address 10.255.0.32 255.255.255.255
- exit
-
-! =========================
-! UPLINKS
-! =========================
-interface Ethernet0/0
- description TO_R16
- ip address 10.0.0.90 255.255.255.252
  no shutdown
  exit
  
