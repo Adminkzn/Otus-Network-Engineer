@@ -845,12 +845,130 @@ copy running-config startup-config
 ```
 
 </details>
-
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
 <details>
+<summary><strong>Настройки R19</strong></summary>
+
+```cisco
+!=========================
+! BASIC CONFIGURATION
+!=========================
+hostname R19
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE & SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.19 255.255.255.255
+ exit
+
+! =========================
+! UPLINKS
+! =========================
+interface Ethernet0/0
+ description TO_R14
+ ip address 10.0.0.78 255.255.255.252
+ no shutdown
+ exit
+
+end
+copy running-config startup-config
+```
+
+</details>
 <!-- ================================================================================================================ -->
 <!-- ================================================================================================================ -->
+<details>
+<summary><strong>Настройка R20</strong></summary>
+
+```cisco
+!=========================
+! БАЗОВАЯ НАСТРОЙКА
+!=========================
+hostname R20
+no ip domain-lookup
+enable secret admin
+service password-encryption
+username admin privilege 15 secret admin
+ip domain-name otus.ru
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+banner motd # OTUS LAB - Authorized access only #
+
+! =========================
+! CONSOLE&&SSH
+! =========================
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 10 0
+ logging synchronous
+ exit
+
+! =========================
+! LOOPBACK
+! =========================
+interface Loopback0
+ description ROUTER_ID
+ ip address 10.255.0.20 255.255.255.255
+ exit
+
+! =========================
+! UPLINKS
+! =========================
+interface Ethernet0/0
+ description TO_R15
+ ip address 10.0.0.74 255.255.255.252
+ no shutdown
+ exit
+ 
+interface range Ethernet0/1-3
+ description UNUSED
+ shutdown
+ exit
+
+end
+copy running-config startup-config
+```
+
+</details>
 
 
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+<details>
 <summary><strong>Настройка R15</strong></summary>
 
 ```cisco
@@ -923,18 +1041,8 @@ copy running-config startup-config
 ```
 
 </details>
-
+------------
 #### 7. Настройки SPB
-
-
-
-
-
-
-
-
-
-
 
 <!-- ================================================================================================================ -->
 <!-- ================================================================================================================ -->
@@ -1530,122 +1638,7 @@ copy running-config startup-config
 
 </details>
 
-<details>
-<summary><strong>Настройки R19</strong></summary>
 
-```cisco
-!=========================
-! BASIC CONFIGURATION
-!=========================
-hostname R19
-no ip domain-lookup
-enable secret admin
-service password-encryption
-username admin privilege 15 secret admin
-ip domain-name otus.ru
-crypto key generate rsa general-keys modulus 2048
-ip ssh version 2
-banner motd # OTUS LAB - Authorized access only #
-
-! =========================
-! CONSOLE & SSH
-! =========================
-line console 0
- login local
- exec-timeout 10 0
- logging synchronous
- exit
-
-line vty 0 4
- login local
- transport input ssh
- exec-timeout 10 0
- logging synchronous
- exit
-
-! =========================
-! LOOPBACK
-! =========================
-interface Loopback0
- description ROUTER_ID
- ip address 10.255.0.19 255.255.255.255
- exit
-
-! =========================
-! UPLINKS
-! =========================
-interface Ethernet0/0
- description TO_R14
- ip address 10.0.0.78 255.255.255.252
- no shutdown
- exit
-
-end
-copy running-config startup-config
-```
-
-</details>
-
-<details>
-<summary><strong>Настройка R20</strong></summary>
-
-```cisco
-!=========================
-! БАЗОВАЯ НАСТРОЙКА
-!=========================
-hostname R20
-no ip domain-lookup
-enable secret admin
-service password-encryption
-username admin privilege 15 secret admin
-ip domain-name otus.ru
-crypto key generate rsa general-keys modulus 2048
-ip ssh version 2
-banner motd # OTUS LAB - Authorized access only #
-
-! =========================
-! CONSOLE&&SSH
-! =========================
-line console 0
- login local
- exec-timeout 10 0
- logging synchronous
- exit
-
-line vty 0 4
- login local
- transport input ssh
- exec-timeout 10 0
- logging synchronous
- exit
-
-! =========================
-! LOOPBACK
-! =========================
-interface Loopback0
- description ROUTER_ID
- ip address 10.255.0.20 255.255.255.255
- exit
-
-! =========================
-! UPLINKS
-! =========================
-interface Ethernet0/0
- description TO_R15
- ip address 10.0.0.74 255.255.255.252
- no shutdown
- exit
- 
-interface range Ethernet0/1-3
- description UNUSED
- shutdown
- exit
-
-end
-copy running-config startup-config
-```
-
-</details>
 <details>
 <summary><strong>Настройка R21</strong></summary>
 
