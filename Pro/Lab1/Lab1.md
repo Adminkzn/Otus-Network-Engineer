@@ -426,22 +426,23 @@ interface Ethernet0/1
  no shutdown
  exit
 
-interface Ethernet0/2
- description TRUNK_TO_SW5
+interface range Ethernet0/2-3
+ description PORTCHANNEL_TO_SW5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ channel-group 1 mode active
+ no shutdown
+ exit
+
+interface Port-channel1
+ description TO_SW5
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
  no shutdown
  exit
-
-interface Ethernet0/3
- description TRUNK_TO_SW5
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 10,99
- no shutdown
- exit
-
+ 
 ! =========================
 ! UPLINKS
 ! =========================
@@ -571,16 +572,17 @@ interface Ethernet0/1
  no shutdown
  exit
 
-interface Ethernet0/2
- description TRUNK_TO_SW4
+interface range Ethernet0/2-3
+ description PORTCHANNEL_TO_SW4
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
+ channel-group 1 mode active
  no shutdown
  exit
 
-interface Ethernet0/3
- description TRUNK_TO_SW4
+interface Port-channel1
+ description TO_SW4
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
@@ -623,7 +625,6 @@ copy running-config startup-config
 ```
 
 </details>
-
 <!-- ================================================================================================================ -->
 <!-- ================================================================================================================ -->
 
@@ -1137,18 +1138,21 @@ interface Vlan99
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/0
- description TRUNK_TO_SW10
+interface range Ethernet0/0-1
+ description PORTCHANNEL_TO_SW10
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 20,99
+ channel-group 1 mode active
+ no shutdown
  exit
- 
-interface Ethernet0/1
- description TRUNK_TO_SW10
+
+interface Port-channel1
+ description TO_SW10
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 20,99
+ no shutdown
  exit
  
 ! =========================
@@ -1193,6 +1197,7 @@ end
 copy running-config startup-config
 
 ```
+
 </details>
 
 <!-- ================================================================================================================ -->
@@ -1272,18 +1277,21 @@ interface Vlan99
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/0
- description TRUNK_TO_SW9
+interface range Ethernet0/0-1
+ description PORTCHANNEL_TO_SW9
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 20,99
+ channel-group 1 mode active
+ no shutdown
  exit
- 
-interface Ethernet0/1
- description TRUNK_TO_SW9
+
+interface Port-channel1
+ description TO_SW9
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 20,99
+ no shutdown
  exit
  
 ! =========================
@@ -1328,6 +1336,7 @@ end
 copy running-config startup-config
 
 ```
+
 </details>
 
 <!-- ================================================================================================================ -->
