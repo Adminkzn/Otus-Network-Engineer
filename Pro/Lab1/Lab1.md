@@ -1734,7 +1734,6 @@ interface range Ethernet0/3
  exit
 
 spanning-tree mode rapid-pvst
-spanning-tree vlan 30,99 priority 24576
 end
 copy running-config startup-config
 
