@@ -1694,6 +1694,7 @@ interface Vlan99
  no shutdown
  exit
 
+no ip routing
 ip default-gateway 10.255.3.254
 
 ! =========================
@@ -1733,7 +1734,6 @@ interface range Ethernet0/3
  shutdown
  exit
 
-no ip routing
 spanning-tree mode rapid-pvst
 end
 copy running-config startup-config
