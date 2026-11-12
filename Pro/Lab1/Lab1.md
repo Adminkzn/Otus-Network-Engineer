@@ -1733,6 +1733,7 @@ interface range Ethernet0/3
  shutdown
  exit
 
+no ip routing
 spanning-tree mode rapid-pvst
 end
 copy running-config startup-config
