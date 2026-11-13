@@ -1640,8 +1640,8 @@ copy running-config startup-config
 <summary><strong>Настройка VPCS</strong></summary>
 
 ```cisco
-VPCS8: ip 192.168.20.10/24 192.168.30.254
-VPCS: ip 192.168.20.11/24 192.168.30.254
+VPCS8: ip 192.168.20.10/24 192.168.20.254
+VPCS: ip 192.168.20.11/24 192.168.20.254
 ```
 
 </details>
