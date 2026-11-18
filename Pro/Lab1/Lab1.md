@@ -1617,13 +1617,13 @@ interface Loopback0
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R16
  ip address 10.0.0.90 255.255.255.252
  no shutdown
  exit
  
-interface range Ethernet0/1-3
+interface range gigabitEthernet0/1-3
  description UNUSED
  shutdown
  exit
