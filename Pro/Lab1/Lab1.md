@@ -1066,7 +1066,7 @@ copy running-config startup-config
 <!-- ================================================================================================================ -->
 
 <details>
-<summary><strong>Настройка SW9 VRRP</strong></summary>
+<summary><strong>Настройка SW9</strong></summary>
 
 ```cisco
 
@@ -1138,7 +1138,7 @@ interface Vlan99
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface range Ethernet0/0-1
+interface range gigabitEthernet0/0-1
  description PORTCHANNEL_TO_SW10
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -1158,7 +1158,7 @@ interface Port-channel1
 ! =========================
 ! ACCESS PORTS
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description VPC8
  switchport mode access
  switchport access vlan 20
@@ -1169,14 +1169,14 @@ interface Ethernet0/2
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet1/0
+interface gigabitEthernet1/0
  description TO_R16
  no switchport
  ip address 10.0.0.109 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description TO_R17
  no switchport
  ip address 10.0.0.113 255.255.255.252
@@ -1186,7 +1186,7 @@ interface Ethernet0/3
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet1/2-3
+interface range gigabitEthernet1/2-3
  description UNUSED
  shutdown
  exit
@@ -1204,144 +1204,7 @@ copy running-config startup-config
 <!-- ================================================================================================================ -->
 
 <details>
-<summary><strong>Настройка SW9 HSRP</strong></summary>
-
-```cisco
-
-!=========================
-! БАЗОВАЯ НАСТРОЙКА
-!=========================
-hostname SW9
-no ip domain-lookup
-enable secret admin
-service password-encryption
-username admin privilege 15 secret admin
-ip domain-name otus.ru
-crypto key generate rsa general-keys modulus 2048
-ip ssh version 2
-banner motd # OTUS LAB - Authorized access only #
-
-! =========================
-! CONSOLE&&SSH
-! =========================
-line console 0
- login local
- exec-timeout 10 0
- logging synchronous
- exit
-
-line vty 0 4
- login local
- transport input ssh
- exec-timeout 10 0
- logging synchronous
- exit
-
-! =========================
-! L3 SWITCHING
-! =========================
-ip routing
-
-! =========================
-! VLAN
-! =========================
-vlan 20
- name SPB_USERS
- exit
-vlan 99
- name SPB_MANAGEMENT
- exit
-
-! =========================
-! SVI + HSRP
-! =========================
-interface Vlan20
- ip address 192.168.20.252 255.255.255.0
- standby 20 ip 192.168.20.254
- standby 20 priority 110
- standby 20 preempt
- no shutdown
-exit
-
-interface Vlan99
- description SPB_MANAGEMENT
- ip address 10.255.2.252 255.255.255.0
- standby 99 ip 10.255.2.254
- standby 99 priority 110
- standby 99 preempt
- no shutdown
-exit
-
-! =========================
-! TRUNK PORTS
-! =========================
-interface range Ethernet0/0-1
- description PORTCHANNEL_TO_SW10
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- channel-group 1 mode active
- no shutdown
- exit
-
-interface Port-channel1
- description TO_SW10
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- no shutdown
- exit
- 
-! =========================
-! ACCESS PORTS
-! =========================
-interface Ethernet0/2
- description VPC8
- switchport mode access
- switchport access vlan 20
- spanning-tree portfast
- spanning-tree bpduguard enable
- exit
- 
-! =========================
-! UPLINKS
-! =========================
-interface Ethernet1/0
- description TO_R16
- no switchport
- ip address 10.0.0.109 255.255.255.252
- no shutdown
- exit
-
-interface Ethernet0/3
- description TO_R17
- no switchport
- ip address 10.0.0.113 255.255.255.252
- no shutdown
- exit
-
-! =========================
-! UNUSED PORTS
-! =========================
-interface range Ethernet1/2-3
- description UNUSED
- shutdown
- exit
-
-spanning-tree mode rapid-pvst
-spanning-tree vlan 20,99 priority 16384
-end
-copy running-config startup-config
-
-```
-
-</details>
-
-<!-- ================================================================================================================ -->
-<!-- ================================================================================================================ -->
-
-<details>
-<summary><strong>Настройка SW10 VRRP</strong></summary>
+<summary><strong>Настройка SW10</strong></summary>
 
 ```cisco
 
@@ -1414,7 +1277,7 @@ interface Vlan99
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface range Ethernet0/0-1
+interface range gigabitEthernet0/0-1
  description PORTCHANNEL_TO_SW9
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -1434,7 +1297,7 @@ interface Port-channel1
 ! =========================
 ! ACCESS PORTS
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description VPC
  switchport mode access
  switchport access vlan 20
@@ -1445,14 +1308,14 @@ interface Ethernet0/2
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet1/0
+interface gigabitEthernet1/0
  description TO_R17
  no switchport
  ip address 10.0.0.121 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description TO_R16
  no switchport
  ip address 10.0.0.117 255.255.255.252
@@ -1462,146 +1325,7 @@ interface Ethernet0/3
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet1/2-3
- description UNUSED
- shutdown
- exit
-
-spanning-tree mode rapid-pvst
-spanning-tree vlan 20,99 priority 24576
-end
-copy running-config startup-config
-
-```
-
-</details>
-
-<!-- ================================================================================================================ -->
-<!-- ================================================================================================================ -->
-
-<details>
-<summary><strong>Настройка SW10 HSRP</strong></summary>
-
-```cisco
-
-!=========================
-! БАЗОВАЯ НАСТРОЙКА
-!=========================
-hostname SW10
-no ip domain-lookup
-enable secret admin
-service password-encryption
-username admin privilege 15 secret admin
-ip domain-name otus.ru
-crypto key generate rsa general-keys modulus 2048
-ip ssh version 2
-banner motd # OTUS LAB - Authorized access only #
-
-! =========================
-! CONSOLE&&SSH
-! =========================
-line console 0
- login local
- exec-timeout 10 0
- logging synchronous
- exit
-
-line vty 0 4
- login local
- transport input ssh
- exec-timeout 10 0
- logging synchronous
- exit
-
-! =========================
-! L3 SWITCHING
-! =========================
-ip routing
-
- 
-! =========================
-! VLAN
-! =========================
-vlan 20
- name SPB_USERS
- exit
-vlan 99
- name SPB_MANAGEMENT
- exit
-
-! =========================
-! SVI + HSRP
-! =========================
-interface Vlan20
- description SPB_USERS
- ip address 192.168.20.253 255.255.255.0
- standby 20 ip 192.168.20.254
- standby 20 priority 100
- standby 20 preempt
- no shutdown
- exit
-
-interface Vlan99
- description SPB_MANAGEMENT
- ip address 10.255.2.253 255.255.255.0
- standby 99 ip 10.255.2.254
- standby 99 priority 100
- standby 99 preempt
- no shutdown
- exit 
-
-! =========================
-! TRUNK PORTS
-! =========================
-interface range Ethernet0/0-1
- description PORTCHANNEL_TO_SW9
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- channel-group 1 mode active
- no shutdown
- exit
-
-interface Port-channel1
- description TO_SW9
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 20,99
- no shutdown
- exit
- 
-! =========================
-! ACCESS PORTS
-! =========================
-interface Ethernet0/2
- description VPC
- switchport mode access
- switchport access vlan 20
- spanning-tree portfast
- spanning-tree bpduguard enable
- exit
- 
-! =========================
-! UPLINKS
-! =========================
-interface Ethernet1/0
- description TO_R17
- no switchport
- ip address 10.0.0.121 255.255.255.252
- no shutdown
- exit
-
-interface Ethernet0/3
- description TO_R16
- no switchport
- ip address 10.0.0.117 255.255.255.252
- no shutdown
- exit 
-
-! =========================
-! UNUSED PORTS
-! =========================
-interface range Ethernet1/2-3
+interface range gigabitEthernet1/1-3
  description UNUSED
  shutdown
  exit
