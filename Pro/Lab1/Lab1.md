@@ -1466,7 +1466,7 @@ interface Loopback0
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_R18
  ip address 10.0.0.85 255.255.255.252
  no shutdown
@@ -1475,13 +1475,13 @@ interface Ethernet0/1
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_SW9
  ip address 10.0.0.114 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TO_SW10
  ip address 10.0.0.122 255.255.255.252
  no shutdown
