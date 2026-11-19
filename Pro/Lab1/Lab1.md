@@ -2065,25 +2065,25 @@ interface Loopback0
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R22
  ip address 10.0.0.30 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_R25
  ip address 10.0.0.37 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TO_R24
  ip address 10.0.0.57 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description UNUSED
  shutdown
  exit
@@ -2214,25 +2214,25 @@ interface Loopback0
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R23
  ip address 10.0.0.38 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_R27
  ip address 10.0.0.45 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TO_R26
  ip address 10.0.0.53 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description TO_R28
  ip address 10.0.0.69 255.255.255.252
  no shutdown
@@ -2288,25 +2288,25 @@ interface Loopback0
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R24
  ip address 10.0.0.42 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_R28
  ip address 10.0.0.49 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TO_R25
  ip address 10.0.0.54 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description TO_R18
  ip address 10.0.0.66 255.255.255.252
  no shutdown
