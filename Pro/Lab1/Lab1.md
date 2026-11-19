@@ -1712,7 +1712,7 @@ ip default-gateway 10.255.3.254
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TRUNK_TO_R28
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -1722,7 +1722,7 @@ interface Ethernet0/2
 ! =========================
 ! ACCESS PORTS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description VPC30
  switchport mode access
  switchport access vlan 30
@@ -1730,7 +1730,7 @@ interface Ethernet0/0
  spanning-tree bpduguard enable
  exit
 
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description VPC31
  switchport mode access
  switchport access vlan 30
@@ -1741,14 +1741,20 @@ interface Ethernet0/1
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet0/3
+interface range gigabitEthernet1/0-3
  description UNUSED
  shutdown
  exit
 
+interface range gigabitEthernet0/3
+ description UNUSED
+ shutdown
+ exit 
+
 spanning-tree mode rapid-pvst
 end
 copy running-config startup-config
+
 
 ```
 
@@ -1801,13 +1807,13 @@ interface Loopback0
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R26
  ip address 10.0.0.50 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_R25
  ip address 10.0.0.70 255.255.255.252
  no shutdown
@@ -1816,7 +1822,7 @@ interface Ethernet0/1
 ! =========================
 ! OFFICE TRUNK
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TRUNK_TO_SW29
  no shutdown
  exit
@@ -1824,19 +1830,19 @@ interface Ethernet0/2
 ! =========================
 ! USER VLANs
 ! =========================
-interface Ethernet0/2.30
+interface gigabitEthernet0/2.30
  description CHKD_USERS
  encapsulation dot1Q 30
  ip address 192.168.30.254 255.255.255.0
  exit
 
-interface Ethernet0/2.99
+interface gigabitEthernet0/2.99
  description CHKD_MANAGEMENT
  encapsulation dot1Q 99
  ip address 10.255.3.254 255.255.255.0
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description UNUSED
  shutdown
  exit
@@ -2321,7 +2327,6 @@ copy running-config startup-config
 ------------
 
 ### Лабытнанги
-
 <details>
 <summary><strong>Настройка R27</strong></summary>
 
@@ -2366,13 +2371,13 @@ interface Loopback0
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R25
  ip address 10.0.0.46 255.255.255.252
  no shutdown
  exit
  
-interface range Ethernet0/1-3
+interface range gigabitEthernet0/1-3
  description UNUSED
  shutdown
  exit
