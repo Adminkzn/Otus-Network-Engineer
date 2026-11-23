@@ -749,25 +749,25 @@ interface Loopback0
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TO_R15
  ip address 10.0.0.5 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description TO_R14
  ip address 10.0.0.9 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_SW4
  ip address 10.0.0.98 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_SW5
  ip address 10.0.0.106 255.255.255.252
  no shutdown
