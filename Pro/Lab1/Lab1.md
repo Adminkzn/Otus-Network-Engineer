@@ -410,7 +410,7 @@ interface Vlan99
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TRUNK_TO_SW3
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -418,7 +418,7 @@ interface Ethernet0/0
  no shutdown
  exit
 
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TRUNK_TO_SW2
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -426,7 +426,7 @@ interface Ethernet0/1
  no shutdown
  exit
 
-interface range Ethernet0/2-3
+interface range gigabitEthernet0/2-3
  description PORTCHANNEL_TO_SW5
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -446,14 +446,14 @@ interface Port-channel1
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet1/0
+interface gigabitEthernet1/0
  description TO_R12
  no switchport
  ip address 10.0.0.93 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet1/1
+interface gigabitEthernet1/1
  description TO_R13
  no switchport
  ip address 10.0.0.97 255.255.255.252
@@ -463,7 +463,7 @@ interface Ethernet1/1
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet1/2-3
+interface range gigabitEthernet1/2-3
  description UNUSED
  shutdown
  exit
@@ -556,7 +556,7 @@ interface Vlan99
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TRUNK_TO_SW2
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -564,7 +564,7 @@ interface Ethernet0/0
  no shutdown
  exit
 
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TRUNK_TO_SW3
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -572,7 +572,7 @@ interface Ethernet0/1
  no shutdown
  exit
 
-interface range Ethernet0/2-3
+interface range gigabitEthernet0/2-3
  description PORTCHANNEL_TO_SW4
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -592,14 +592,14 @@ interface Port-channel1
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet1/0
+interface gigabitEthernet1/0
  description TO_R13
  no switchport
  ip address 10.0.0.105 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet1/1
+interface gigabitEthernet1/1
  description TO_R12
  no switchport
  ip address 10.0.0.101 255.255.255.252
@@ -609,7 +609,7 @@ interface Ethernet1/1
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet1/2-3
+interface range gigabitEthernet1/2-3
  description UNUSED
  shutdown
  exit
