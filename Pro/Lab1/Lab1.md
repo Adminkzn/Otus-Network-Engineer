@@ -7,7 +7,7 @@
 распланировать адресное пространство, настроить IP на активных портах для дальнейшей работы над проектом и задокументировать адресацию.
 
 ------------
-![][(https://raw.githubusercontent.com/Adminkzn/Otus-Network-Engineer/refs/heads/main/Pro/Lab1/img/2.jpg)
+![](https://raw.githubusercontent.com/Adminkzn/Otus-Network-Engineer/refs/heads/main/Pro/Lab1/img/2.jpg).
 
 #### Разработаете и задокументируете адресное пространство для лабораторного стенда.
 
