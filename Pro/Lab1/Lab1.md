@@ -935,11 +935,11 @@ copy running-config startup-config
 <!-- ================================================================================================================ -->
 
 <details>
-<summary><strong>Настройки R19</strong></summary>
+<summary><strong>Настройка R19</strong></summary>
 
 ```cisco
 !=========================
-! BASIC CONFIGURATION
+! БАЗОВАЯ НАСТРОЙКА
 !=========================
 hostname R19
 no ip domain-lookup
@@ -978,7 +978,7 @@ interface Loopback0
 ! =========================
 ! UPLINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R14
  ip address 10.0.0.78 255.255.255.252
  no shutdown
