@@ -824,25 +824,25 @@ interface Loopback0
 ! =========================
 ! P2P LINKS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TO_R12
  ip address 10.0.0.2 255.255.255.252
  no shutdown
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TO_R13
  ip address 10.0.0.10 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description TO_R22
  ip address 10.0.0.17 255.255.255.252
  no shutdown
  exit
 
-interface Ethernet0/3
+interface gigabitEthernet0/3
  description TO_R19
  ip address 10.0.0.77 255.255.255.252
  no shutdown
