@@ -192,14 +192,14 @@ ip default-gateway 10.255.1.254
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TRUNK_TO_SW5
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
  exit
 
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TRUNK_TO_SW4
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -209,7 +209,7 @@ interface Ethernet0/1
 ! =========================
 ! ACCESS PORTS
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description VPC7
  switchport mode access
  switchport access vlan 10
@@ -220,7 +220,7 @@ interface Ethernet0/2
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet0/3,Ethernet1/0-3
+interface range gigabitEthernet0/3,gigabitEthernet1/0-3
  description UNUSED
  shutdown
  exit
@@ -292,14 +292,14 @@ ip default-gateway 10.255.1.254
 ! =========================
 ! TRUNK PORTS
 ! =========================
-interface Ethernet0/0
+interface gigabitEthernet0/0
  description TRUNK_TO_SW4
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,99
  exit
  
-interface Ethernet0/1
+interface gigabitEthernet0/1
  description TRUNK_TO_SW5
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -309,7 +309,7 @@ interface Ethernet0/1
 ! =========================
 ! ACCESS PORTS
 ! =========================
-interface Ethernet0/2
+interface gigabitEthernet0/2
  description VPC1
  switchport mode access
  switchport access vlan 10
@@ -321,7 +321,7 @@ interface Ethernet0/2
 ! =========================
 ! UNUSED PORTS
 ! =========================
-interface range Ethernet0/3,Ethernet1/0-3
+interface range gigabitEthernet0/3,gigabitEthernet1/0-3
  description UNUSED
  shutdown
  exit
