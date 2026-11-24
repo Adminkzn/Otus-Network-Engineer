@@ -91,7 +91,7 @@ show ip policy
 ```
 Получил такой результат
 <p align="center">
-  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/3.jpg?raw=true" width="800">
+  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/3.jpg?raw=true">
   <br>
   <em></em>
 </p>
