@@ -29,6 +29,8 @@ ISP для VPC30 будет R25 если он не доступен то R26
 ISP для VPC31 будет R26 если он не доступен то R25
 
 ```cisco
+configure terminal
+
 ip access-list extended PBR_VPC30
  permit ip host 192.168.30.10 any
 exit
