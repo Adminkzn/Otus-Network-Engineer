@@ -2,7 +2,7 @@
 #### Проектирование сети
 
 <p align="center">
-  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/1.jpg?raw=true" width="800">
+  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/1.jpg?raw=true" width="500">
 </p>
 
 Цель:
@@ -15,5 +15,5 @@
 ### Настройка R28
 
 <p align="center">
-  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/2.jpg?raw=true" width="800">
+  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/2.jpg?raw=true" width="500">
 </p>
