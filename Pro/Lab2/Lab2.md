@@ -89,7 +89,7 @@ show ip policy
 На R25: ip route 192.168.30.0 255.255.255.0 10.0.0.70
 На R26: ip route 192.168.30.0 255.255.255.0 10.0.0.50
 ```
-Получил такой результат
+Результат
 <p align="center">
   <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/3.jpg?raw=true">
   <br>
@@ -106,3 +106,9 @@ exit
 
 end
 ```
+Результат
+<p align="center">
+  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/4.jpg?raw=true">
+  <br>
+  <em></em>
+</p>
