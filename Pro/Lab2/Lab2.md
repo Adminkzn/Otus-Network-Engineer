@@ -19,3 +19,55 @@
   <br>
   <em>Топология и адресация сетей Чокурдах, Лабытнанги</em>
 </p>
+<!-- ================================================================================================================ -->
+<!-- ================================================================================================================ -->
+
+ISP для VPC30 будет R25 если он не доступен то R26
+ISP для VPC31 будет R26 если он не доступен то R25
+
+```cisco
+ip access-list extended PBR_VPC30
+ permit ip host 192.168.30.10 any
+exit
+
+ip access-list extended PBR_VPC31
+ permit ip host 192.168.30.11 any
+exit
+
+ip sla 10
+ icmp-echo 10.0.0.69 source-interface GigabitEthernet0/1
+ frequency 5
+exit
+
+ip sla schedule 10 life forever start-time now
+
+ip sla 20
+ icmp-echo 10.0.0.49 source-interface GigabitEthernet0/0
+ frequency 5
+exit
+
+ip sla schedule 20 life forever start-time now
+
+track 10 ip sla 10 reachability
+exit
+
+track 20 ip sla 20 reachability
+exit
+
+ 
+route-map PBR_CHKD permit 10
+ match ip address PBR_VPC30
+ set ip next-hop verify-availability 10.0.0.69 10 track 10
+ set ip next-hop verify-availability 10.0.0.49 20 track 20
+exit
+
+route-map PBR_CHKD permit 20
+ match ip address PBR_VPC31
+ set ip next-hop verify-availability 10.0.0.49 10 track 20
+ set ip next-hop verify-availability 10.0.0.69 20 track 10
+exit
+```
+ 
+interface GigabitEthernet0/2.30
+ ip policy route-map PBR_CHKD
+exit 
