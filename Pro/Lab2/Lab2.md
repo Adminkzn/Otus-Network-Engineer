@@ -77,3 +77,10 @@ exit
 
 end
 ```
+Команды для проверки
+```cisco
+show ip sla statistics
+show track
+show route-map PBR_CHKD
+show ip policy
+```
