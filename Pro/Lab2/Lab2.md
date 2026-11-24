@@ -1,7 +1,7 @@
 ## Домашнее задание №1
 #### Проектирование сети
 
-![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab1/img/1.jpg?raw=true)
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/1.jpg?raw=true)
 
 Цель:
 Настроить политику маршрутизации в офисе Чокурдах и распределить трафик между двумя линками.
