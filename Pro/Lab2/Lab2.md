@@ -95,3 +95,14 @@ show ip policy
   <br>
   <em></em>
 </p>
+
+Выключаем интерфейс 0/0 на R28
+```cisco
+configure terminal
+
+interface gigabitEthernet 0/0
+shutdown
+exit
+
+end
+```
