@@ -73,5 +73,7 @@ exit
 
 interface GigabitEthernet0/2.30
  ip policy route-map PBR_CHKD
-exit 
+exit
+
+end
 ```
