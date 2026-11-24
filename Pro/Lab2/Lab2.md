@@ -23,6 +23,7 @@
 <!-- ================================================================================================================ -->
 
 ISP для VPC30 будет R25 если он не доступен то R26
+
 ISP для VPC31 будет R26 если он не доступен то R25
 
 ```cisco
@@ -54,7 +55,6 @@ exit
 track 20 ip sla 20 reachability
 exit
 
- 
 route-map PBR_CHKD permit 10
  match ip address PBR_VPC30
  set ip next-hop verify-availability 10.0.0.69 10 track 10
@@ -66,8 +66,8 @@ route-map PBR_CHKD permit 20
  set ip next-hop verify-availability 10.0.0.49 10 track 20
  set ip next-hop verify-availability 10.0.0.69 20 track 10
 exit
-```
- 
+
 interface GigabitEthernet0/2.30
  ip policy route-map PBR_CHKD
 exit 
+```
