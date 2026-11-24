@@ -5,3 +5,7 @@
 
 Цель:
 Настроить политику маршрутизации в офисе Чокурдах и распределить трафик между двумя линками.
+
+#### Настройка R28
+![](https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/2.jpg?raw=true)
+
