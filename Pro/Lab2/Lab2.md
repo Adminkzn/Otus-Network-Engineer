@@ -14,7 +14,7 @@
 
 ### Настройка R28
 <p align="center">
-  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/2.jpg?raw=true" width="650">
+  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/2.jpg?raw=true">
   <br>
   <em>Топология и адресация сетей Чокурдах, Лабытнанги</em>
 </p>
@@ -84,6 +84,12 @@ show track
 show route-map PBR_CHKD
 show ip policy
 ```
+Результат
+<p align="center">
+  <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/5.jpg?raw=true">
+  <br>
+  <em></em>
+</p>
 Для показательной проверки добавил на R25 и R25 маршруты
 ```cisco
 На R25: ip route 192.168.30.0 255.255.255.0 10.0.0.70
