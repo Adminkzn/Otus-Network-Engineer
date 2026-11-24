@@ -17,5 +17,5 @@
 <p align="center">
   <img src="https://github.com/Adminkzn/Otus-Network-Engineer/blob/main/Pro/Lab2/img/2.jpg?raw=true" width="650">
   <br>
-  <em>Топология сети</em>
+  <em>Топология и адресация сети Чокурдах и Лабытнанги</em>
 </p>
