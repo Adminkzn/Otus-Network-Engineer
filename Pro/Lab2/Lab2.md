@@ -76,6 +76,7 @@ interface GigabitEthernet0/2.30
 exit
 
 end
+write memory
 ```
 Команды для проверки
 ```cisco
@@ -119,3 +120,13 @@ end
   <br>
   <em></em>
 </p>
+
+### Настройка R27
+```cisco
+configure terminal
+
+ip route 0.0.0.0 0.0.0.0 10.0.0.45
+
+end
+write memory
+```
